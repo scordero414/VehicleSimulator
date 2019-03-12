@@ -105,7 +105,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
         lblVelocidad.setFont(new java.awt.Font("Verdana", 3, 36)); // NOI18N
         lblVelocidad.setForeground(new java.awt.Color(204, 204, 204));
         lblVelocidad.setText("---");
-        getContentPane().add(lblVelocidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 280, 80, 50));
+        getContentPane().add(lblVelocidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 280, 140, 50));
 
         jLabel3.setFont(new java.awt.Font("Verdana", 3, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 204, 204));
@@ -143,11 +143,13 @@ public class VistaVehiculo extends javax.swing.JFrame {
     private void btnAcelerarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMousePressed
         milisegs = (System.currentTimeMillis())/1000;
         generarSonidoAutoAcelerando();
+        
     }//GEN-LAST:event_btnAcelerarMousePressed
 
     private void btnAcelerarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMouseReleased
         milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
         simulador.acelerarVehiculo(milisegs2);
+        dibujarVelocidad();
         audioCarroAcelerando.stop();
         System.out.println("Me presionaron : "+milisegs2+" segundos");
     }//GEN-LAST:event_btnAcelerarMouseReleased
@@ -181,7 +183,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAcelerarActionPerformed
     
-  
+    public void dibujarVelocidad(){
+        float velocidad = simulador.extraerVelocidad();
+        lblVelocidad.setText(Float.toString(velocidad));
+    }
     private AudioClip audioCarroAndando;
     /**
      * Se genera el sonido del auto en su marcha normal.
