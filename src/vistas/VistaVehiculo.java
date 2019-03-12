@@ -23,6 +23,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
      */
     public VistaVehiculo() {
         initComponents();
+        setVisible(true);
         setLocationRelativeTo(null);
     }
 
@@ -50,7 +51,9 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
         btnAcelerar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PedalAc.png"))); // NOI18N
         btnAcelerar.setToolTipText("");
-        btnAcelerar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnAcelerar.setBorderPainted(false);
+        btnAcelerar.setContentAreaFilled(false);
+        btnAcelerar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAcelerar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnAcelerarMousePressed(evt);
@@ -67,7 +70,9 @@ public class VistaVehiculo extends javax.swing.JFrame {
         getContentPane().add(btnAcelerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 710, 90, 140));
 
         btnFreno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PedalFr.png"))); // NOI18N
-        btnFreno.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnFreno.setBorderPainted(false);
+        btnFreno.setContentAreaFilled(false);
+        btnFreno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFreno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnFrenoMouseClicked(evt);
@@ -82,7 +87,9 @@ public class VistaVehiculo extends javax.swing.JFrame {
         getContentPane().add(btnFreno, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 740, 80, 110));
 
         btnApagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/On_Off.png"))); // NOI18N
-        btnApagar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnApagar.setBorderPainted(false);
+        btnApagar.setContentAreaFilled(false);
+        btnApagar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApagarActionPerformed(evt);
@@ -101,7 +108,9 @@ public class VistaVehiculo extends javax.swing.JFrame {
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 280, 120, 50));
 
         btnEncender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/On_Off.png"))); // NOI18N
-        btnEncender.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnEncender.setBorderPainted(false);
+        btnEncender.setContentAreaFilled(false);
+        btnEncender.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEncender.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEncenderActionPerformed(evt);
