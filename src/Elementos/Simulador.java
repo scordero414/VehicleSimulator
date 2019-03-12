@@ -12,9 +12,21 @@ import vistas.VistaVehiculo;
  * @author USUARIO
  */
 public class Simulador {
+    private Vehiculo vehiculo;
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
     public static void main(String[] args) throws Exception {
         LectorArchivoTextoPlano lector = new LectorArchivoTextoPlano();
         lector.leerTexto();
+        Simulador simulador = new Simulador();
+        VistaVehiculo vistaVehiculo =  new VistaVehiculo();
+        Vehiculo vehiculo = new Vehiculo(0,false);
+        vistaVehiculo.setSimulador(simulador);
+        simulador.setVehiculo(vehiculo);
     }
-    
+    public void acelerarVehiculo(float aceleracion){
+        vehiculo.acelerar(aceleracion);
+    }
 }

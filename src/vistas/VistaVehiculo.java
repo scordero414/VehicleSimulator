@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import Elementos.Simulador;
 import Elementos.Vehiculo;
 import java.applet.AudioClip;
 
@@ -15,14 +16,19 @@ import java.applet.AudioClip;
 public class VistaVehiculo extends javax.swing.JFrame {
     private long milisegs;
     private long milisegs2;
-    private int estadoFrenoAceleracion;
-    private boolean estadoPrenderApagar;
-    Vehiculo vehiculo;
+    private Simulador simulador;
+    
+    public void setSimulador(Simulador simulador) {
+        this.simulador = simulador;
+    }
+    
+    
     /**
      * Creates new form VistaVehiculo
      */
     public VistaVehiculo() {
         initComponents();
+        setVisible(true);
         setLocationRelativeTo(null);
     }
 
@@ -50,7 +56,9 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
         btnAcelerar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PedalAc.png"))); // NOI18N
         btnAcelerar.setToolTipText("");
-        btnAcelerar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnAcelerar.setBorderPainted(false);
+        btnAcelerar.setContentAreaFilled(false);
+        btnAcelerar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAcelerar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnAcelerarMousePressed(evt);
@@ -67,7 +75,9 @@ public class VistaVehiculo extends javax.swing.JFrame {
         getContentPane().add(btnAcelerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 710, 90, 140));
 
         btnFreno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PedalFr.png"))); // NOI18N
-        btnFreno.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnFreno.setBorderPainted(false);
+        btnFreno.setContentAreaFilled(false);
+        btnFreno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFreno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnFrenoMouseClicked(evt);
@@ -82,7 +92,9 @@ public class VistaVehiculo extends javax.swing.JFrame {
         getContentPane().add(btnFreno, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 740, 80, 110));
 
         btnApagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/On_Off.png"))); // NOI18N
-        btnApagar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnApagar.setBorderPainted(false);
+        btnApagar.setContentAreaFilled(false);
+        btnApagar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApagarActionPerformed(evt);
@@ -101,7 +113,9 @@ public class VistaVehiculo extends javax.swing.JFrame {
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 280, 120, 50));
 
         btnEncender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/On_Off.png"))); // NOI18N
-        btnEncender.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnEncender.setBorderPainted(false);
+        btnEncender.setContentAreaFilled(false);
+        btnEncender.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEncender.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEncenderActionPerformed(evt);
@@ -133,11 +147,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
     private void btnAcelerarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMouseReleased
         milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
-        if(milisegs2 > 0){
-            estadoFrenoAceleracion = 1;
-        }else if(milisegs2 >= 6){
-            estadoFrenoAceleracion = 2;
-        }
+        simulador.acelerarVehiculo(milisegs2);
         audioCarroAcelerando.stop();
         System.out.println("Me presionaron : "+milisegs2+" segundos");
     }//GEN-LAST:event_btnAcelerarMouseReleased
@@ -149,11 +159,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
     private void btnFrenoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMouseReleased
         milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
-        if(milisegs2 > 0){
-            estadoFrenoAceleracion = 3;
-        }else if(milisegs2 >= 6){
-            estadoFrenoAceleracion = 4;            
-        }
+        
         audioCarroFreno.stop();
         System.out.println("Me presionaron : "+milisegs2+" segundos");
     }//GEN-LAST:event_btnFrenoMouseReleased
@@ -163,26 +169,19 @@ public class VistaVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFrenoMouseClicked
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
-        estadoPrenderApagar = false;  
         audioCarroAndando.stop();
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
-        estadoPrenderApagar = true;
         generarSonidoAutoPrendiendo();
         generarSonidoAutoMarcha();
-        obtenerVelocidad();
     }//GEN-LAST:event_btnEncenderActionPerformed
 
     private void btnAcelerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcelerarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAcelerarActionPerformed
     
-    public void obtenerVelocidad() {
-        String velocidad = Integer.toString(vehiculo.getVelocidad());
-        lblVelocidad.setText(velocidad);
-    }
-    
+  
     private AudioClip audioCarroAndando;
     /**
      * Se genera el sonido del auto en su marcha normal.
@@ -218,10 +217,6 @@ public class VistaVehiculo extends javax.swing.JFrame {
         audioCarroFreno.play();
     }
 
-    public int getEstadoFrenoAceleracion() {
-        return estadoFrenoAceleracion;
-    }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcelerar;
     private javax.swing.JButton btnApagar;

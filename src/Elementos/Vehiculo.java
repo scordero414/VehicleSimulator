@@ -14,18 +14,32 @@ public class Vehiculo {
     /**
      * La velocidad a la que andará el vehículo, esta varía constantemente.
      */
-    private int velocidad = 0; 
+    private float velocidad = 0; 
     /**
      * El estado en que permanece el vehículo.
      */
-    private int estado;
+    private boolean estado;
 
-    public Vehiculo(String tipoLlanta, int cilindrajeMotor, int velocidad, int estado) {
+    public Vehiculo(float velocidad, boolean estado) {
         this.velocidad = velocidad;
         this.estado = estado;
     }
-
-    public int getVelocidad() {
+    
+    public void acelerar(float aceleracion){
+        
+        if(aceleracion  > 0){
+            velocidad += aceleracion * 6;
+        }else if(aceleracion > 3){
+            velocidad += aceleracion * 12;
+        }else if(aceleracion > 5){
+            velocidad += aceleracion * 16;
+        }else if(aceleracion > 7){
+            velocidad += aceleracion * 20;
+        }
+        System.out.println(velocidad);
+    }
+    
+    public float getVelocidad() {
         return velocidad;
     }
 
@@ -33,11 +47,11 @@ public class Vehiculo {
         this.velocidad = velocidad;
     }
 
-    public int getEstado() {
+    public boolean getEstado() {
         return estado;
     }
 
-    public void setEstado(int estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
     
