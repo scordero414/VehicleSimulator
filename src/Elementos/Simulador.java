@@ -15,7 +15,6 @@ public class Simulador {
     public static void main(String[] args) throws Exception {
         LectorArchivoTextoPlano lector = new LectorArchivoTextoPlano();
         lector.leerTexto();
-        VistaVehiculo vistaVehiculo = new VistaVehiculo();
     }
     
 }
