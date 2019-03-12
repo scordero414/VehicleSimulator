@@ -5,44 +5,59 @@
  */
 package Elementos;
 
-import Exceptions.TextoVacioException;
+import Exceptions.TextoPlanoException;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
  * @author USUARIO
  */
-public class LectorArchivoTextoPlano {
+public class LectorArchivoTextoPlano implements Lector {
     
     private String texto = "src/Archivos/EditarVehiculo.txt";
-    private String tipoLlanta;
-    private String cilindrajeMotor;
-        
-    public void leerTexto() throws Exception {
+    private String arr[];
+    
+    @Override
+    public void leerTexto() throws IOException {
             
-        String arr[];
         File file = new File(texto);
         
         try {
-            FileReader fileR = new FileReader(file);
-            BufferedReader reader = new BufferedReader(fileR);
-            
-            String text = "";
-            String line = reader.readLine();
-            while (line != null) {
-                text += line;
-                line = reader.readLine();
+            if(file.length() != 0) {
+                conocerArchivoTexto();
+            } else {
+                throw new TextoPlanoException("Debe ingresar los datos correctamente.");
             }
-            arr = text.split(" ");
-            System.out.println(arr[1] + " " + arr[3]);
-
-        } catch (IOException e) {
-            if(file.length() == 0) {
-                throw new TextoVacioException("No se ha ingresado una especificación correcta.");
-            }
+        } catch (TextoPlanoException ex) {
+            System.out.println(ex.getMessage());
         }
+    }
+    
+    public void conocerArchivoTexto() throws FileNotFoundException, IOException {
+        
+        FileReader fileR = new FileReader(texto);
+        BufferedReader reader = new BufferedReader(fileR);
+        
+        String text = "";
+        String line = reader.readLine();
+        while (line != null) {
+            text += line;
+            line = reader.readLine();
+        }
+        arr = text.split(" ");
+    }
+    
+    public String entregarLlanta() {
+        return arr[1];
+    }
+    
+    public String entregarMotor() {
+        return arr[3];
     }
 }
