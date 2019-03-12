@@ -11,7 +11,10 @@ package Elementos;
  */
 public class Vehiculo {
     
-    private int velocidad;
+    /**
+     * La velocidad a la que andará el vehículo, esta varía constantemente.
+     */
+    private int velocidad; 
     /**
      * El estado en que permanece el vehículo.
      */
