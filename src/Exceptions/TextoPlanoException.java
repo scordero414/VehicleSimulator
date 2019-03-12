@@ -9,9 +9,9 @@ package Exceptions;
  *
  * @author USUARIO
  */
-public class TextoVacioException extends Exception {
+public class TextoPlanoException extends Exception {
 
-    public TextoVacioException(String message) {
+    public TextoPlanoException(String message) {
         super(message);
     }
     

@@ -5,10 +5,12 @@
  */
 package Elementos;
 
+import java.io.IOException;
+
 /**
  *
  * @author USUARIO
  */
 public interface Lector {
-    
+    public void leerTexto() throws IOException;
 }
