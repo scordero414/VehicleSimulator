@@ -9,7 +9,7 @@ package Exceptions;
  *
  * @author USUARIO
  */
-public class ApagarDeNuevoException extends Exception {
+public class ApagarDeNuevoException extends RuntimeException {
 
     public ApagarDeNuevoException(String message) {
         super(message);

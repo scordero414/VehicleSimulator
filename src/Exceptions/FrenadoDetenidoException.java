@@ -9,7 +9,7 @@ package Exceptions;
  *
  * @author USUARIO
  */
-public class FrenadoDetenidoException extends Exception {
+public class FrenadoDetenidoException extends RuntimeException {
 
     public FrenadoDetenidoException(String message) {
         super(message);

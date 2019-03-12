@@ -9,7 +9,7 @@ package Exceptions;
  *
  * @author USUARIO
  */
-public class PatinarFrenadoBruscoException extends Exception {
+public class PatinarFrenadoBruscoException extends RuntimeException {
 
     public PatinarFrenadoBruscoException(String message) {
         super(message);

@@ -9,7 +9,7 @@ package Exceptions;
  *
  * @author USUARIO
  */
-public class PatinarException extends Exception {
+public class PatinarException extends RuntimeException {
 
     public PatinarException(String message) {
         super(message);

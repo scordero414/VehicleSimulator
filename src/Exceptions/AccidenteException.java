@@ -9,7 +9,7 @@ package Exceptions;
  *
  * @author USUARIO
  */
-public class AccidenteException extends Exception {
+public class AccidenteException extends RuntimeException {
 
     public AccidenteException(String message) {
         super(message);

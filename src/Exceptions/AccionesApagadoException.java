@@ -9,7 +9,7 @@ package Exceptions;
  *
  * @author USUARIO
  */
-public class AccionesApagadoException extends Exception {
+public class AccionesApagadoException extends RuntimeException {
 
     public AccionesApagadoException(String message) {
         super(message);

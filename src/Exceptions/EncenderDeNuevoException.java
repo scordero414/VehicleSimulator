@@ -9,7 +9,7 @@ package Exceptions;
  *
  * @author USUARIO
  */
-public class EncenderDeNuevoException extends Exception {
+public class EncenderDeNuevoException extends RuntimeException {
 
     public EncenderDeNuevoException(String message) {
         super(message);

@@ -9,7 +9,7 @@ package Exceptions;
  *
  * @author USUARIO
  */
-public class AcelerarMaximaCapacidadMotorException extends Exception {
+public class AcelerarMaximaCapacidadMotorException extends RuntimeException {
 
     public AcelerarMaximaCapacidadMotorException(String message) {
         super(message);

@@ -9,7 +9,7 @@ package Exceptions;
  *
  * @author USUARIO
  */
-public class PatinarFrenadoMayorVelocidadException extends Exception {
+public class PatinarFrenadoMayorVelocidadException extends RuntimeException {
 
     public PatinarFrenadoMayorVelocidadException(String message) {
         super(message);

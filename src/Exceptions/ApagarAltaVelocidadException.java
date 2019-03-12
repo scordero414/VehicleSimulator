@@ -9,7 +9,7 @@ package Exceptions;
  *
  * @author USUARIO
  */
-public class ApagarAltaVelocidadException extends Exception {
+public class ApagarAltaVelocidadException extends RuntimeException {
 
     public ApagarAltaVelocidadException(String message) {
         super(message);
