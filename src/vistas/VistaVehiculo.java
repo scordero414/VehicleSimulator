@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import Elementos.Vehiculo;
 import java.applet.AudioClip;
 
 /**
@@ -16,6 +17,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
     private long milisegs2;
     private int estadoFrenoAceleracion;
     private boolean estadoPrenderApagar;
+    Vehiculo vehiculo;
     /**
      * Creates new form VistaVehiculo
      */
@@ -169,11 +171,17 @@ public class VistaVehiculo extends javax.swing.JFrame {
         estadoPrenderApagar = true;
         generarSonidoAutoPrendiendo();
         generarSonidoAutoMarcha();
+        obtenerVelocidad();
     }//GEN-LAST:event_btnEncenderActionPerformed
 
     private void btnAcelerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcelerarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAcelerarActionPerformed
+    
+    public void obtenerVelocidad() {
+        String velocidad = Integer.toString(vehiculo.getVelocidad());
+        lblVelocidad.setText(velocidad);
+    }
     
     private AudioClip audioCarroAndando;
     /**

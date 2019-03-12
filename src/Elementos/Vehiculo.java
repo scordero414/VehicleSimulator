@@ -14,7 +14,7 @@ public class Vehiculo {
     /**
      * La velocidad a la que andará el vehículo, esta varía constantemente.
      */
-    private int velocidad; 
+    private int velocidad = 0; 
     /**
      * El estado en que permanece el vehículo.
      */

@@ -5,6 +5,8 @@
  */
 package Elementos;
 
+import vistas.VistaVehiculo;
+
 /**
  *
  * @author USUARIO
@@ -12,7 +14,6 @@ package Elementos;
 public class Simulador {
     public static void main(String[] args) throws Exception {
         LectorArchivoTextoPlano lector = new LectorArchivoTextoPlano();
-        lector.leerTexto();
     }
     
 }
