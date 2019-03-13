@@ -34,9 +34,13 @@ public class Vehiculo {
      */
     private boolean estadoPrendido;
     /**
-     * El estado en que permanece el vehículo (Prendido).
+     * El estado en el que esta fisicamente el vehiculo.
      */
     private boolean estadoAccidentado;
+    /**
+     * El estado cambia dependiendo de la accion del usuario.
+     */
+    private boolean estadoFrenoBrusco;
 
 
     public Vehiculo(boolean estadoPrendido, boolean estadoAccidentado) {
@@ -67,18 +71,25 @@ public class Vehiculo {
      */
     public void frenar(float frenado){
        
-        if(frenado  > 0){
-            velocidad -= frenado * 6;
+        if(frenado  >= 0 & frenado < 3){
+            velocidad -= frenado * 2;
             determinarVelocidadNegativa();
-        }else if(frenado > 3){
-            velocidad -= frenado * 12;
+            System.out.println(velocidad);
+        }else if(frenado >= 3 & frenado < 5){
+            velocidad -= frenado * 3;
             determinarVelocidadNegativa();
-        }else if(frenado > 5){
-            velocidad -= frenado * 16;
+            System.out.println(velocidad);
+        }else if(frenado >=4 & frenado < 5){
+            velocidad -= frenado * 5;
             determinarVelocidadNegativa();
-        }else if(frenado > 7){
-            velocidad -= frenado * 20;
+            System.out.println(velocidad);
+            System.out.println(frenarBruscamente());
+        }else if(frenado >= 5){
+            velocidad -= frenado *6;
+            estadoFrenoBrusco = true;
             determinarVelocidadNegativa();
+            System.out.println(velocidad);
+            System.out.println(frenarBruscamente());
         }
     }
     public void prender(){
@@ -89,7 +100,12 @@ public class Vehiculo {
         estadoPrendido = false;
         velocidad = 0;
     }
-    
+    public boolean frenarBruscamente(){
+        if(estadoFrenoBrusco){
+            return true;
+        }
+        return false;
+    }
     public boolean desactivarFrenarAcelerarApagado(String mensaje) throws AccionesApagadoException {
         return conocerEstadoVehiculo();
     }
