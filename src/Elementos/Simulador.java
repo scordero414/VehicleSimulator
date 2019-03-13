@@ -6,6 +6,8 @@
 package Elementos;
 
 import Exceptions.AccionesApagadoException;
+import Exceptions.ApagarDeNuevoException;
+import Exceptions.EncenderDeNuevoException;
 import vistas.VistaVehiculo;
 
 /**
@@ -65,6 +67,18 @@ public class Simulador {
     
     public boolean desactivarFrenarAcelerarApagado(String mensaje) throws AccionesApagadoException {
         if(vehiculo.desactivarFrenarAcelerarApagado(mensaje)) 
+            return true;
+        return false;
+    }
+    
+    public boolean desactivarApagarApagado(String mensaje) throws ApagarDeNuevoException {
+        if(vehiculo.desactivarApagarApagado(mensaje)) 
+            return true;
+        return false;
+    }
+    
+    public boolean desactivarEncenderEncendido(String mensaje) throws EncenderDeNuevoException{
+        if(vehiculo.desactivarEncenderEncendido(mensaje))
             return true;
         return false;
     }

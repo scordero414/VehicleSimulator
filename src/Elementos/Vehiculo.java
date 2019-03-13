@@ -6,6 +6,8 @@
 package Elementos;
 
 import Exceptions.AccionesApagadoException;
+import Exceptions.ApagarDeNuevoException;
+import Exceptions.EncenderDeNuevoException;
 
 /**
  *
@@ -82,6 +84,18 @@ public class Vehiculo {
     }
     
     public boolean desactivarFrenarAcelerarApagado(String mensaje) throws AccionesApagadoException {
+        return conocerEstadoVehiculo();
+    }
+    
+    public boolean desactivarApagarApagado(String mensaje) throws ApagarDeNuevoException {
+        return conocerEstadoVehiculo();
+    }
+    
+    public boolean desactivarEncenderEncendido(String mensaje) throws EncenderDeNuevoException{
+        return conocerEstadoVehiculo();
+    }
+    
+    public boolean conocerEstadoVehiculo() {
         if(isEstadoPrendido()) 
             return true;
         return false;

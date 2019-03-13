@@ -8,6 +8,8 @@ package vistas;
 import Elementos.Simulador;
 import Elementos.Vehiculo;
 import Exceptions.AccionesApagadoException;
+import Exceptions.ApagarDeNuevoException;
+import Exceptions.EncenderDeNuevoException;
 import java.applet.AudioClip;
 import javax.swing.JOptionPane;
 
@@ -194,16 +196,33 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
         String mensaje = "El carro ya está apagado";
-        audioCarroAndando.stop();
-        simulador.apagarVehiculo();
-        dibujarVelocidad();
+        try {
+            if(simulador.desactivarFrenarAcelerarApagado(mensaje)) {
+                audioCarroAndando.stop();
+                simulador.apagarVehiculo();
+                dibujarVelocidad();
+            } else {
+                throw new ApagarDeNuevoException(mensaje);
+            }
+        } catch (ApagarDeNuevoException e) {
+            JOptionPane.showMessageDialog(null, mensaje);
+        }
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
-        generarSonidoAutoPrendiendo();
-        generarSonidoAutoMarcha();
-        simulador.prenderVehiculo();
-        dibujarVelocidad();
+        String mensaje = "El vehículo ya está encendido y listo para funcionar.";
+        try {
+            if(simulador.desactivarEncenderEncendido(mensaje)) {
+                generarSonidoAutoPrendiendo();
+                generarSonidoAutoMarcha();
+                simulador.prenderVehiculo();
+                dibujarVelocidad();
+            } else {
+                throw new EncenderDeNuevoException(mensaje);
+            }
+        } catch (EncenderDeNuevoException e) {
+            JOptionPane.showMessageDialog(null, mensaje);
+        }
     }//GEN-LAST:event_btnEncenderActionPerformed
 
     private void btnAcelerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcelerarActionPerformed
