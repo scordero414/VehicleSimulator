@@ -42,10 +42,15 @@ public class Vehiculo {
      */
     private boolean estadoFrenoBrusco;
 
+    /**
+     * El estado en que está el vehículo cuando frena (Patinando).
+     */
+    private boolean estadoPatinado;
 
-    public Vehiculo(boolean estadoPrendido, boolean estadoAccidentado) {
+    public Vehiculo(boolean estadoPrendido, boolean estadoAccidentado, boolean estadoPatinado) {
         this.estadoPrendido = estadoPrendido;
         this.estadoAccidentado = estadoAccidentado;
+        this.estadoPatinado = estadoPatinado;
     }
 
     
@@ -111,9 +116,7 @@ public class Vehiculo {
     }
     
     public boolean desactivarApagarApagado(String mensaje) throws ApagarDeNuevoException {
-        if(!conocerEstadoVehiculo())
-            return true;
-        return false;   
+        return conocerEstadoVehiculo();
     }
     
     public boolean desactivarEncenderEncendido(String mensaje) throws EncenderDeNuevoException{
@@ -164,6 +167,14 @@ public class Vehiculo {
 
     public void setEstadoAccidentado(boolean estadoAccidentado) {
         this.estadoAccidentado = estadoAccidentado;
+    }
+    
+    public boolean isEstadoPatinado() {
+        return estadoPatinado;
+    }
+
+    public void setEstadoPatinado(boolean estadoPatinado) {
+        this.estadoPatinado = estadoPatinado;
     }
 
     public Llanta getLlanta() {
