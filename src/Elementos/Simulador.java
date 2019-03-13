@@ -29,8 +29,12 @@ public class Simulador {
     public void acelerarVehiculo(float aceleracion){
         vehiculo.acelerar(aceleracion);
     }
+    public void frenarVehiculo(float frenado){
+        vehiculo.frenar(frenado);
+    }
     public float extraerVelocidad(){
         return vehiculo.getVelocidad();
     }
+    
 
 }

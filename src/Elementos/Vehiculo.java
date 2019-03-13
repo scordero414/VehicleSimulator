@@ -36,7 +36,18 @@ public class Vehiculo {
         }else if(aceleracion > 7){
             velocidad += aceleracion * 20;
         }
-        System.out.println(velocidad);
+    }
+    public void frenar(float frenado){
+        
+        if(frenado  > 0){
+            velocidad -= frenado * 6;
+        }else if(frenado > 3){
+            velocidad -= frenado * 12;
+        }else if(frenado > 5){
+            velocidad -= frenado * 16;
+        }else if(frenado > 7){
+            velocidad -= frenado * 20;
+        }
     }
     
     public float getVelocidad() {

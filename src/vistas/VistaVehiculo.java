@@ -156,12 +156,14 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
     private void btnFrenoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMousePressed
         milisegs = (System.currentTimeMillis())/1000;
-        generarSonidoAutoFrenando();     
+        generarSonidoAutoFrenando(); 
+        dibujarVelocidad();
     }//GEN-LAST:event_btnFrenoMousePressed
 
     private void btnFrenoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMouseReleased
         milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
-        
+        simulador.frenarVehiculo(milisegs2);
+        dibujarVelocidad();
         audioCarroFreno.stop();
         System.out.println("Me presionaron : "+milisegs2+" segundos");
     }//GEN-LAST:event_btnFrenoMouseReleased
@@ -177,6 +179,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
     private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
         generarSonidoAutoPrendiendo();
         generarSonidoAutoMarcha();
+        dibujarVelocidad();
     }//GEN-LAST:event_btnEncenderActionPerformed
 
     private void btnAcelerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcelerarActionPerformed
