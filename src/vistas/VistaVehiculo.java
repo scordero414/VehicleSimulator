@@ -149,11 +149,16 @@ public class VistaVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAcelerarMousePressed
 
     private void btnAcelerarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMouseReleased
-        milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
-        simulador.acelerarVehiculo(milisegs2);
-        dibujarVelocidad();
-        audioCarroAcelerando.stop();
-        System.out.println("Me presionaron : "+milisegs2+" segundos");
+        String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
+        if(simulador.desactivarAccionesApagado(mensaje)) {
+            milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
+            simulador.acelerarVehiculo(milisegs2);
+            dibujarVelocidad();
+            audioCarroAcelerando.stop();
+            System.out.println("Me presionaron : "+milisegs2+" segundos");
+        } else {
+            JOptionPane.showMessageDialog(null, mensaje);
+        }    
     }//GEN-LAST:event_btnAcelerarMouseReleased
 
     private void btnFrenoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMousePressed
@@ -187,17 +192,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
-        String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
-        if(simulador.desactivarAccionesApagado(mensaje)) {
-            simulador.desactivarAccionesApagado(mensaje);
-            generarSonidoAutoPrendiendo();
-            generarSonidoAutoMarcha();
-            simulador.prenderVehiculo();
-            dibujarVelocidad();
-        } else {
-            JOptionPane.showMessageDialog(null, mensaje);
-        }
-        
+        generarSonidoAutoPrendiendo();
+        generarSonidoAutoMarcha();
+        simulador.prenderVehiculo();
+        dibujarVelocidad();
     }//GEN-LAST:event_btnEncenderActionPerformed
 
     private void btnAcelerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcelerarActionPerformed
