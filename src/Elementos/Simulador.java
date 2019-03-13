@@ -10,6 +10,7 @@ import Exceptions.AccionesApagadoException;
 import Exceptions.ApagarDeNuevoException;
 import Exceptions.EncenderDeNuevoException;
 import Exceptions.FrenadoDetenidoException;
+import Exceptions.PatinarException;
 import vistas.VistaVehiculo;
 
 /**
@@ -28,7 +29,7 @@ public class Simulador {
         VistaVehiculo vistaVehiculo =  new VistaVehiculo();
         vistaVehiculo.setSimulador(this);
         taller.ensamblarLlantaMotor(vehiculo);
-        System.out.println(vehiculo.getLlanta());
+        System.out.println(vehiculo.getLlanta().getLimitePermitido());
     }
 
     
@@ -70,35 +71,28 @@ public class Simulador {
     }
     
     public boolean desactivarFrenarAcelerarApagado(String mensaje) throws AccionesApagadoException {
-        if(vehiculo.desactivarFrenarAcelerarApagado(mensaje)) 
-            return true;
-        return false;
+        return vehiculo.desactivarFrenarAcelerarApagado(mensaje);
     }
     
     public boolean desactivarApagarApagado(String mensaje) throws ApagarDeNuevoException {
-        if(vehiculo.desactivarApagarApagado(mensaje)) 
-            return true;
-        return false;
+        return vehiculo.desactivarApagarApagado(mensaje);
     }
     
     public boolean desactivarEncenderEncendido(String mensaje) throws EncenderDeNuevoException{
-        if(vehiculo.desactivarEncenderEncendido(mensaje))
-            return true;
-        return false;
+        return vehiculo.desactivarEncenderEncendido(mensaje);
     }
     
     public boolean validarFrenarDetenido(String mensaje) throws FrenadoDetenidoException {
-        if(vehiculo.frenarDetenido()) 
-            return true;
-        return false;
+        return vehiculo.frenarDetenido();
     }
     
     public boolean frenarAltaVelocidad() throws AccidenteException {
-        if(vehiculo.frenarAltaVelocidad())
-            return true;
-        return false;
+        return vehiculo.frenarAltaVelocidad();
     }
 
+    public boolean sobrePasarVelocidadLlantas() throws PatinarException{
+        return vehiculo.sobrePasarVelocidadLlantas();
+    }
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }

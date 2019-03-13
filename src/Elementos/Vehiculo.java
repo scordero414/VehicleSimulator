@@ -10,6 +10,7 @@ import Exceptions.AccionesApagadoException;
 import Exceptions.ApagarDeNuevoException;
 import Exceptions.EncenderDeNuevoException;
 import Exceptions.FrenadoDetenidoException;
+import Exceptions.PatinarException;
 import Exceptions.PatinarFrenadoBruscoException;
 
 /**
@@ -79,22 +80,16 @@ public class Vehiculo {
         if(frenado  >= 0 & frenado < 3){
             velocidad -= frenado * 2;
             determinarVelocidadNegativa();
-            System.out.println(velocidad);
         }else if(frenado >= 3 & frenado < 5){
             velocidad -= frenado * 3;
             determinarVelocidadNegativa();
-            System.out.println(velocidad);
         }else if(frenado >=4 & frenado < 5){
             velocidad -= frenado * 5;
             determinarVelocidadNegativa();
-            System.out.println(velocidad);
-            System.out.println(frenarBruscamente());
         }else if(frenado >= 5){
             velocidad -= frenado *6;
             estadoFrenoBrusco = true;
             determinarVelocidadNegativa();
-            System.out.println(velocidad);
-            System.out.println(frenarBruscamente());
         }
     }
     public void prender(){
@@ -105,12 +100,7 @@ public class Vehiculo {
         estadoPrendido = false;
         velocidad = 0;
     }
-    public boolean frenarBruscamente(){
-        if(estadoFrenoBrusco){
-            return true;
-        }
-        return false;
-    }
+
     public boolean desactivarFrenarAcelerarApagado(String mensaje) throws AccionesApagadoException {
         return conocerEstadoVehiculo();
     }
@@ -142,6 +132,12 @@ public class Vehiculo {
             estadoAccidentado = true;
             return true;
         }
+        return false;
+    }
+    
+    public boolean sobrePasarVelocidadLlantas() throws PatinarException{
+        if(velocidad > llanta.getLimitePermitido() & estadoFrenoBrusco)
+            return true;
         return false;
     }
     
