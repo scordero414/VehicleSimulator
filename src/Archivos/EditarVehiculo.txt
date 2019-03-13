@@ -1,2 +1,2 @@
-Llantas null
- Motor null
+Llantas buenas
+ Motor 2000

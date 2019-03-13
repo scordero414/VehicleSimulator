@@ -5,10 +5,12 @@
  */
 package Elementos;
 
+import Exceptions.AccidenteException;
 import Exceptions.AccionesApagadoException;
 import Exceptions.ApagarDeNuevoException;
 import Exceptions.EncenderDeNuevoException;
 import Exceptions.FrenadoDetenidoException;
+import Exceptions.PatinarFrenadoBruscoException;
 
 /**
  *
@@ -35,11 +37,16 @@ public class Vehiculo {
      * El estado en que permanece el vehículo (Prendido).
      */
     private boolean estadoAccidentado;
+    /**
+     * El estado en que está el vehículo cuando frena (Patinando).
+     */
+    private boolean estadoPatinado;
 
 
-    public Vehiculo(boolean estadoPrendido, boolean estadoAccidentado) {
+    public Vehiculo(boolean estadoPrendido, boolean estadoAccidentado, boolean estadoPatinado) {
         this.estadoPrendido = estadoPrendido;
         this.estadoAccidentado = estadoAccidentado;
+        this.estadoPatinado = estadoPatinado;
     }
 
     
@@ -78,7 +85,6 @@ public class Vehiculo {
             velocidad -= frenado * 20;
             determinarVelocidadNegativa();
         }
-        
     }
     public void prender(){
         estadoPrendido = true;
@@ -90,18 +96,18 @@ public class Vehiculo {
     }
     
     public boolean desactivarFrenarAcelerarApagado(String mensaje) throws AccionesApagadoException {
-        return estadoVehiculo();
+        return conocerEstadoVehiculo();
     }
     
     public boolean desactivarApagarApagado(String mensaje) throws ApagarDeNuevoException {
-        return estadoVehiculo();
+        return conocerEstadoVehiculo();
     }
     
     public boolean desactivarEncenderEncendido(String mensaje) throws EncenderDeNuevoException{
-        return estadoVehiculo();
+        return conocerEstadoVehiculo();
     }
     
-    public boolean estadoVehiculo() {
+    public boolean conocerEstadoVehiculo() {
         if(isEstadoPrendido()) 
             return true;
         return false;
@@ -110,6 +116,14 @@ public class Vehiculo {
     public boolean frenarDetenido() throws FrenadoDetenidoException {
         if(velocidad <= 0) {
             velocidad = 0;
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean frenarAltaVelocidad() throws AccidenteException {
+        if(velocidad > 60) {
+            estadoAccidentado = true;
             return true;
         }
         return false;
@@ -137,6 +151,14 @@ public class Vehiculo {
 
     public void setEstadoAccidentado(boolean estadoAccidentado) {
         this.estadoAccidentado = estadoAccidentado;
+    }
+    
+    public boolean isEstadoPatinado() {
+        return estadoPatinado;
+    }
+
+    public void setEstadoPatinado(boolean estadoPatinado) {
+        this.estadoPatinado = estadoPatinado;
     }
 
     public Llanta getLlanta() {

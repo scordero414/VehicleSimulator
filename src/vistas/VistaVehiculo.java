@@ -7,6 +7,7 @@ package vistas;
 
 import Elementos.Simulador;
 import Elementos.Vehiculo;
+import Exceptions.AccidenteException;
 import Exceptions.AccionesApagadoException;
 import Exceptions.ApagarDeNuevoException;
 import Exceptions.EncenderDeNuevoException;
@@ -213,19 +214,31 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
         String mensaje = "El carro ya está apagado";
+        String mensajeAccidente = "Hey! Haz pagado el vehìculo a una gran velocidad, te accidentarás y se te apagará el vehículo.";
+        
         try {
-            if(simulador.desactivarFrenarAcelerarApagado(mensaje)) {
-                audioCarroAndando.stop();
-                simulador.apagarVehiculo();
-                dibujarVelocidad();
-            } else {
+            if(simulador.desactivarApagarApagado(mensaje)) {
                 throw new ApagarDeNuevoException(mensaje);
+            }
+            if(!simulador.frenarAltaVelocidad()) {
+                apagarVehiculo();
+            } else {
+                throw new AccidenteException(mensajeAccidente);
             }
         } catch (ApagarDeNuevoException e) {
             JOptionPane.showMessageDialog(null, mensaje);
+        } catch (AccidenteException ex) {
+            JOptionPane.showMessageDialog(null, mensajeAccidente);
+            apagarVehiculo();
         }
     }//GEN-LAST:event_btnApagarActionPerformed
 
+    public void apagarVehiculo() {
+        audioCarroAndando.stop();
+        simulador.apagarVehiculo();
+        dibujarVelocidad();
+    }
+    
     private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
         String mensaje = "El vehículo ya está encendido y listo para funcionar.";
         try {

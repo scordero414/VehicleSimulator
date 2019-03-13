@@ -5,6 +5,7 @@
  */
 package Elementos;
 
+import Exceptions.AccidenteException;
 import Exceptions.AccionesApagadoException;
 import Exceptions.ApagarDeNuevoException;
 import Exceptions.EncenderDeNuevoException;
@@ -20,18 +21,20 @@ import vistas.VistaVehiculo;
  */
 public class Simulador {
     private Vehiculo vehiculo;
-
-    public void setVehiculo(Vehiculo vehiculo) {
-        this.vehiculo = vehiculo;
-    }
-    public static void main(String[] args) throws Exception {
-        LectorArchivoTextoPlano lector = new LectorArchivoTextoPlano();
-        lector.leerTexto();
-        Simulador simulador = new Simulador();
+    private Taller taller;
+    public Simulador() {
+        vehiculo = new Vehiculo(false, false, false);
+        taller = new Taller();
         VistaVehiculo vistaVehiculo =  new VistaVehiculo();
-        Vehiculo vehiculo = new Vehiculo(false, false);
-        vistaVehiculo.setSimulador(simulador);
-        simulador.setVehiculo(vehiculo);
+        vistaVehiculo.setSimulador(this);
+        taller.ensamblarLlantaMotor(vehiculo);
+        System.out.println(vehiculo.getLlanta());
+    }
+
+    
+    public static void main(String[] args) throws Exception {
+        Simulador simulador = new Simulador();
+        
     }
     
     /**
@@ -89,5 +92,14 @@ public class Simulador {
             return true;
         return false;
     }
+    
+    public boolean frenarAltaVelocidad() throws AccidenteException {
+        if(vehiculo.frenarAltaVelocidad())
+            return true;
+        return false;
+    }
 
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
 }

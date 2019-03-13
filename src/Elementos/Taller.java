@@ -26,6 +26,11 @@ public class Taller {
 
     private LectorArchivoTextoPlano lectorArchivoTextoPlano;
     
+    public Taller() {
+        lectorArchivoTextoPlano = new LectorArchivoTextoPlano();
+        crearLlanta();
+        crearMotor();
+    }
     /**
      * Se configura los atributos de motor y llanta, del carro
      * obteniendo los datos ingresados en el archivo de texto.
@@ -66,10 +71,9 @@ public class Taller {
         }
     }
 
-    public Taller(Llanta tipoLlanta, Motor tipoMotor, LectorArchivoTextoPlano lectorArchivoTextoPlano) {
-        this.tipoLlanta = tipoLlanta;
-        this.tipoMotor = tipoMotor;
-        this.lectorArchivoTextoPlano = lectorArchivoTextoPlano;
+    public void ensamblarLlantaMotor(Vehiculo vehiculo){
+        vehiculo.setLlanta(tipoLlanta);
+        vehiculo.setMotor(tipoMotor);
     }
 
     public Llanta getTipoLlanta() {
