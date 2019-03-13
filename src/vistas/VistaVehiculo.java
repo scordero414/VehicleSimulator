@@ -146,9 +146,8 @@ public class VistaVehiculo extends javax.swing.JFrame {
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
         try {
             if(simulador.desactivarAccionesApagado(mensaje)) {
-                milisegs = (System.currentTimeMillis())/2000;
+                milisegs = (System.currentTimeMillis())/1000;
                 generarSonidoAutoAcelerando();
-                JOptionPane.showMessageDialog(null, mensaje);
             } else {
                 throw new AccionesApagadoException(mensaje);
             }
@@ -194,9 +193,18 @@ public class VistaVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFrenoMouseClicked
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
-        audioCarroAndando.stop();
-        simulador.apagarVehiculo();
-        dibujarVelocidad();
+        String mensaje = "El carro ya está apagado";
+        try {
+            if(simulador.desactivarAccionesApagado(mensaje)) {
+                audioCarroAndando.stop();
+                simulador.apagarVehiculo();
+                dibujarVelocidad();
+            } else {
+                throw new AccionesApagadoException(mensaje);
+            }
+        } catch (AccionesApagadoException e) {
+            JOptionPane.showMessageDialog(null, mensaje);
+        }
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
