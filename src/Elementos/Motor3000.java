@@ -6,8 +6,11 @@
 package Elementos;
 
 /**
- *
- * @author USUARIO
+ * Tipo de motor, en este caso, de 3000cc.
+ * @author Daniel Gutiérrez Duque
+ * @author Sebastián Cordero Ramírez
+ * @version 20190312
+ * @since 3.0
  */
 public class Motor3000 extends Motor {
     

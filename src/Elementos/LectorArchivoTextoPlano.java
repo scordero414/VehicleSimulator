@@ -14,13 +14,24 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 /**
- *
- * @author USUARIO
+ * Se lee y se busca el archivo del texto, conociendo los datos deseados.
+ * @author Daniel Gutiérrez Duque
+ * @author Sebastián Cordero Ramírez
+ * @version 20190312
+ * @since 1.0
  */
 public class LectorArchivoTextoPlano implements Lector {
     
+    /**
+     * Ruta del archivo de texto.
+     */
     private String texto = "src/Archivos/EditarVehiculo.txt";
+    /**
+     * Arreglo donde se guardarán los datos como tipo de llanta y 
+     * cilindraje del motor, guardados n el archivo de texto.
+     */
     private String arr[];
     
     @Override
@@ -39,6 +50,11 @@ public class LectorArchivoTextoPlano implements Lector {
         }
     }
     
+    /**
+     * Se busca y se conoce el contenido del archivo de texto.
+     * @throws FileNotFoundException
+     * @throws IOException 
+     */
     public void conocerArchivoTexto() throws FileNotFoundException, IOException {
         
         FileReader fileR = new FileReader(texto);
@@ -51,12 +67,21 @@ public class LectorArchivoTextoPlano implements Lector {
             line = reader.readLine();
         }
         arr = text.split(" ");
+        System.out.println(arr[1] +" " + arr[3]);
     }
     
+    /**
+     * Se retorna el tipo de llanta guardado en el archivo de texto.
+     * @return tipo de llanta, guardado en la posición 1 del array.
+     */
     public String entregarLlanta() {
         return arr[1];
     }
     
+    /**
+     * Se retorna el cilindraje del motor guardado en el archivo de texto.
+     * @return cilindraje del motor, guardado en la posición 3 del array.
+     */
     public String entregarMotor() {
         return arr[3];
     }

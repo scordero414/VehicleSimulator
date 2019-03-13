@@ -6,8 +6,11 @@
 package Elementos;
 
 /**
- *
- * @author USUARIO
+ * Tipo de llanta, en este caso, buena.
+ * @author Daniel Gutiérrez Duque
+ * @author Sebastián Cordero Ramírez
+ * @version 20190312
+ * @since 3.0
  */
 public class LlantaBuena extends Llanta {
     

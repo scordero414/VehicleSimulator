@@ -6,8 +6,11 @@
 package Elementos;
 
 /**
- *
- * @author USUARIO
+ * Clase en la cual se conoce los atributos del motor.
+ * @author Daniel Gutiérrez Duque
+ * @author Sebastián Cordero Ramírez
+ * @version 20190312
+ * @since 2.0
  */
 public abstract class Motor {
     

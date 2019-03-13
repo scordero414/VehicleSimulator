@@ -6,8 +6,11 @@
 package Elementos;
 
 /**
- *
- * @author USUARIO
+ * Tipo de motor, en este caso, de 1000cc.
+ * @author Daniel Gutiérrez Duque
+ * @author Sebastián Cordero Ramírez
+ * @version 20190312
+ * @since 3.0
  */
 public class Motor1000 extends Motor {
     

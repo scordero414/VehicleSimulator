@@ -6,15 +6,30 @@
 package Elementos;
 
 /**
- *
- * @author USUARIO
+ * Se configura los atributos del vehículo, como lo son el tipo de llanta 
+ * y el cilindraje del motor.
+ * @author Daniel Gutiérrez Duque
+ * @author Sebastián Cordero Ramírez
+ * @version 20190213
+ * @since 2.0
  */
 public class Taller {
+    
+    /**
+     * Tipo de llanta.
+     */
     private String tipoLlanta;
+    /**
+     * Cilindraje perteneciente al motor.
+     */
     private String cilindrajeMotor;
 
     private LectorArchivoTextoPlano lectorArchivoTextoPlano;
     
+    /**
+     * Se configura los atributos de motor y llanta, del carro
+     * obteniendo los datos ingresados en el archivo de texto.
+     */
     public void configurarCarro() {
         setTipoLlanta(lectorArchivoTextoPlano.entregarLlanta());
         setCilindrajeMotor(lectorArchivoTextoPlano.entregarMotor());

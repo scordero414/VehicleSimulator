@@ -8,8 +8,11 @@ package Elementos;
 import vistas.VistaVehiculo;
 
 /**
- *
- * @author USUARIO
+ * Clase control, donde se definen las excepciones, y se acciona el vehículo.
+ * @author Daniel Gutiérrez Duque.
+ * @author Sebastián Cordero Ramírez.
+ * @version 20190312
+ * @since 2.0
  */
 public class Simulador {
     private Vehiculo vehiculo;
@@ -26,12 +29,29 @@ public class Simulador {
         vistaVehiculo.setSimulador(simulador);
         simulador.setVehiculo(vehiculo);
     }
+    
+    /**
+     * Se llama el método de acelerar ubicado en el vehículo,
+     * para que éste aumente su velocidad.
+     * @param aceleracion utilizado para determinar la velocidad 
+     * del vehículo.
+     */
     public void acelerarVehiculo(float aceleracion){
         vehiculo.acelerar(aceleracion);
     }
+    /**
+     * Se llama el método de frenar, ubicado en vehículo para
+     * poder disminuir la velocidad de éste.
+     * @param frenado es utilizado para determinar los km/h que 
+     * el vehículo disminuye.
+     */
     public void frenarVehiculo(float frenado){
         vehiculo.frenar(frenado);
     }
+    /**
+     * Se conoce la velocidad que obtiene el vehículo actualmente.
+     * @return 
+     */
     public float extraerVelocidad(){
         return vehiculo.getVelocidad();
     }

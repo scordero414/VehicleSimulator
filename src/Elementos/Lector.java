@@ -1,16 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Elementos;
 
 import java.io.IOException;
 
 /**
- *
- * @author USUARIO
+ * Interface en la cual se crean métodos para la lectura de archivo de texto.
+ * @author Daniel Gutiérrez Duque.
+ * @author Sebastián Cordero Ramírez.
+ * @version 20190312
+ * @since 1.0
  */
 public interface Lector {
+    
+    /**
+     * Método para la lectura del archivo de texto.
+     * @throws IOException 
+     */
     public void leerTexto() throws IOException;
 }
