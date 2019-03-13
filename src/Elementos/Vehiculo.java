@@ -95,7 +95,9 @@ public class Vehiculo {
     }
     
     public boolean desactivarApagarApagado(String mensaje) throws ApagarDeNuevoException {
-        return conocerEstadoVehiculo();
+        if(!conocerEstadoVehiculo())
+            return true;
+        return false;   
     }
     
     public boolean desactivarEncenderEncendido(String mensaje) throws EncenderDeNuevoException{

@@ -214,30 +214,31 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
         String mensaje = "El carro ya está apagado";
-        String mensajeAccidente = "";
+        String mensajeAccidente = "Hey! Haz pagado el vehìculo a una gran velocidad, te accidentarás y se te apagará el vehículo.";
         
         try {
+            if(simulador.desactivarApagarApagado(mensaje)) {
+                throw new ApagarDeNuevoException(mensaje);
+            }
             if(!simulador.frenarAltaVelocidad()) {
-                audioCarroAndando.stop();
-                simulador.apagarVehiculo();
-                dibujarVelocidad();
+                apagarVehiculo();
             } else {
                 throw new ApagarAltaVelocidadException(mensajeAccidente);
-            }
-            if(simulador.desactivarApagarApagado(mensaje)) {
-                audioCarroAndando.stop();
-                simulador.apagarVehiculo();
-                dibujarVelocidad();
-            } else {
-                throw new ApagarDeNuevoException(mensaje);
             }
         } catch (ApagarDeNuevoException e) {
             JOptionPane.showMessageDialog(null, mensaje);
         } catch (ApagarAltaVelocidadException ex) {
             JOptionPane.showMessageDialog(null, mensajeAccidente);
+            apagarVehiculo();
         }
     }//GEN-LAST:event_btnApagarActionPerformed
 
+    public void apagarVehiculo() {
+        audioCarroAndando.stop();
+        simulador.apagarVehiculo();
+        dibujarVelocidad();
+    }
+    
     private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
         String mensaje = "El vehículo ya está encendido y listo para funcionar.";
         try {
