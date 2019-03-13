@@ -161,23 +161,22 @@ public class VistaVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAcelerarMouseReleased
 
     private void btnFrenoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMousePressed
-        milisegs = (System.currentTimeMillis())/1000;
-        generarSonidoAutoFrenando(); 
-        dibujarVelocidad();
-    }//GEN-LAST:event_btnFrenoMousePressed
-
-    private void btnFrenoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMouseReleased
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
         if(simulador.desactivarAccionesApagado(mensaje)) {
-            milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
-            simulador.frenarVehiculo(milisegs2);
+            milisegs = (System.currentTimeMillis())/1000;
+            generarSonidoAutoFrenando(); 
             dibujarVelocidad();
-            audioCarroFreno.stop();
-            System.out.println("Me presionaron : "+milisegs2+" segundos");
         } else {
             JOptionPane.showMessageDialog(null, mensaje);
         }
-        
+    }//GEN-LAST:event_btnFrenoMousePressed
+
+    private void btnFrenoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMouseReleased
+        milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
+        simulador.frenarVehiculo(milisegs2);
+        dibujarVelocidad();
+        audioCarroFreno.stop();
+        System.out.println("Me presionaron : "+milisegs2+" segundos");
     }//GEN-LAST:event_btnFrenoMouseReleased
 
     private void btnFrenoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMouseClicked
