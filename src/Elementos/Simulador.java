@@ -6,6 +6,7 @@
 package Elementos;
 
 import Exceptions.AccionesApagadoException;
+import Exceptions.ApagarAltaVelocidadException;
 import Exceptions.ApagarDeNuevoException;
 import Exceptions.EncenderDeNuevoException;
 import Exceptions.FrenadoDetenidoException;
@@ -86,6 +87,12 @@ public class Simulador {
     
     public boolean validarFrenarDetenido(String mensaje) throws FrenadoDetenidoException {
         if(vehiculo.frenarDetenido()) 
+            return true;
+        return false;
+    }
+    
+    public boolean frenarAltaVelocidad() throws ApagarAltaVelocidadException {
+        if(vehiculo.frenarAltaVelocidad())
             return true;
         return false;
     }

@@ -6,9 +6,11 @@
 package Elementos;
 
 import Exceptions.AccionesApagadoException;
+import Exceptions.ApagarAltaVelocidadException;
 import Exceptions.ApagarDeNuevoException;
 import Exceptions.EncenderDeNuevoException;
 import Exceptions.FrenadoDetenidoException;
+import Exceptions.PatinarFrenadoBruscoException;
 
 /**
  *
@@ -110,6 +112,14 @@ public class Vehiculo {
     public boolean frenarDetenido() throws FrenadoDetenidoException {
         if(velocidad <= 0) {
             velocidad = 0;
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean frenarAltaVelocidad() throws ApagarAltaVelocidadException {
+        if(velocidad > 60) {
+            estadoAccidentado = true;
             return true;
         }
         return false;

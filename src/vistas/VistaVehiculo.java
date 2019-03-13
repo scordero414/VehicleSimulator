@@ -8,6 +8,7 @@ package vistas;
 import Elementos.Simulador;
 import Elementos.Vehiculo;
 import Exceptions.AccionesApagadoException;
+import Exceptions.ApagarAltaVelocidadException;
 import Exceptions.ApagarDeNuevoException;
 import Exceptions.EncenderDeNuevoException;
 import Exceptions.FrenadoDetenidoException;
@@ -213,8 +214,17 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
         String mensaje = "El carro ya está apagado";
+        String mensajeAccidente = "";
+        
         try {
-            if(simulador.desactivarFrenarAcelerarApagado(mensaje)) {
+            if(!simulador.frenarAltaVelocidad()) {
+                audioCarroAndando.stop();
+                simulador.apagarVehiculo();
+                dibujarVelocidad();
+            } else {
+                throw new ApagarAltaVelocidadException(mensajeAccidente);
+            }
+            if(simulador.desactivarApagarApagado(mensaje)) {
                 audioCarroAndando.stop();
                 simulador.apagarVehiculo();
                 dibujarVelocidad();
@@ -223,6 +233,8 @@ public class VistaVehiculo extends javax.swing.JFrame {
             }
         } catch (ApagarDeNuevoException e) {
             JOptionPane.showMessageDialog(null, mensaje);
+        } catch (ApagarAltaVelocidadException ex) {
+            JOptionPane.showMessageDialog(null, mensajeAccidente);
         }
     }//GEN-LAST:event_btnApagarActionPerformed
 
