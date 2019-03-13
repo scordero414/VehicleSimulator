@@ -64,16 +64,21 @@ public class Vehiculo {
      * @param frenado determina cuanta velocidad hay que disminurile al vehiculo.
      */
     public void frenar(float frenado){
-        
+       
         if(frenado  > 0){
             velocidad -= frenado * 6;
+            determinarVelocidadNegativa();
         }else if(frenado > 3){
             velocidad -= frenado * 12;
+            determinarVelocidadNegativa();
         }else if(frenado > 5){
             velocidad -= frenado * 16;
+            determinarVelocidadNegativa();
         }else if(frenado > 7){
             velocidad -= frenado * 20;
+            determinarVelocidadNegativa();
         }
+        
     }
     public void prender(){
         estadoPrendido = true;
@@ -103,8 +108,8 @@ public class Vehiculo {
     }
     
     public boolean frenarDetenido() throws FrenadoDetenidoException {
-        if(getVelocidad() <= 0) {
-            setVelocidad(0);
+        if(velocidad <= 0) {
+            velocidad = 0;
             return true;
         }
         return false;
@@ -150,7 +155,11 @@ public class Vehiculo {
         this.motor = motor;
     }
     
-    
+    public void determinarVelocidadNegativa(){
+        if(velocidad<0){
+            velocidad = 0;
+        }
+    }
     
     
 }
