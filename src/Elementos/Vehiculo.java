@@ -85,18 +85,18 @@ public class Vehiculo {
     }
     
     public boolean desactivarFrenarAcelerarApagado(String mensaje) throws AccionesApagadoException {
-        return conocerEstadoVehiculo();
+        return estadoVehiculo();
     }
     
     public boolean desactivarApagarApagado(String mensaje) throws ApagarDeNuevoException {
-        return conocerEstadoVehiculo();
+        return estadoVehiculo();
     }
     
     public boolean desactivarEncenderEncendido(String mensaje) throws EncenderDeNuevoException{
-        return conocerEstadoVehiculo();
+        return estadoVehiculo();
     }
     
-    public boolean conocerEstadoVehiculo() {
+    public boolean estadoVehiculo() {
         if(isEstadoPrendido()) 
             return true;
         return false;
