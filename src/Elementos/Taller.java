@@ -18,41 +18,82 @@ public class Taller {
     /**
      * Tipo de llanta.
      */
-    private String tipoLlanta;
+    private Llanta tipoLlanta;
     /**
      * Cilindraje perteneciente al motor.
      */
-    private String cilindrajeMotor;
+    private Motor tipoMotor;
 
     private LectorArchivoTextoPlano lectorArchivoTextoPlano;
     
     /**
      * Se configura los atributos de motor y llanta, del carro
      * obteniendo los datos ingresados en el archivo de texto.
-     */
+     
     public void configurarCarro() {
         setTipoLlanta(lectorArchivoTextoPlano.entregarLlanta());
         setCilindrajeMotor(lectorArchivoTextoPlano.entregarMotor());
-    }
+    }*/
     
-    public Taller(String tipoLlanta, String cilindrajeMotor) {
-        this.tipoLlanta = tipoLlanta;
-        this.cilindrajeMotor = cilindrajeMotor;
+    public void crearLlanta(){
+        String archivoLlanta = lectorArchivoTextoPlano.entregarLlanta();
+        if(archivoLlanta.equalsIgnoreCase("bonitas")){
+            Llanta llanta = new LlantaBonita(70);
+            tipoLlanta = llanta;
+        }
+        if(archivoLlanta.equalsIgnoreCase("buenas")){
+            Llanta llanta = new LlantaBuena(110);
+            tipoLlanta = llanta;
+        }
+        if(archivoLlanta.equalsIgnoreCase("baratas")){
+            Llanta llanta = new LlantaBuena(50);
+            tipoLlanta = llanta;
+        }
+    }
+    public void crearMotor(){
+        String archivoLlanta = lectorArchivoTextoPlano.entregarMotor();
+        if(archivoLlanta.equalsIgnoreCase("1000")){
+            Motor motor = new Motor1000(100);
+            tipoMotor = motor;
+        }
+        if(archivoLlanta.equalsIgnoreCase("2000")){
+            Motor motor = new Motor2000(160);
+            tipoMotor = motor;
+        }
+        if(archivoLlanta.equalsIgnoreCase("3000")){
+            Motor motor = new Motor3000(220);
+            tipoMotor = motor;
+        }
     }
 
-    public String getTipoLlanta() {
+    public Taller(Llanta tipoLlanta, Motor tipoMotor, LectorArchivoTextoPlano lectorArchivoTextoPlano) {
+        this.tipoLlanta = tipoLlanta;
+        this.tipoMotor = tipoMotor;
+        this.lectorArchivoTextoPlano = lectorArchivoTextoPlano;
+    }
+
+    public Llanta getTipoLlanta() {
         return tipoLlanta;
     }
 
-    public void setTipoLlanta(String tipoLlanta) {
+    public void setTipoLlanta(Llanta tipoLlanta) {
         this.tipoLlanta = tipoLlanta;
     }
 
-    public String getCilindrajeMotor() {
-        return cilindrajeMotor;
+    public Motor getTipoMotor() {
+        return tipoMotor;
     }
 
-    public void setCilindrajeMotor(String cilindrajeMotor) {
-        this.cilindrajeMotor = cilindrajeMotor;
+    public void setTipoMotor(Motor tipoMotor) {
+        this.tipoMotor = tipoMotor;
     }
+
+    public LectorArchivoTextoPlano getLectorArchivoTextoPlano() {
+        return lectorArchivoTextoPlano;
+    }
+
+    public void setLectorArchivoTextoPlano(LectorArchivoTextoPlano lectorArchivoTextoPlano) {
+        this.lectorArchivoTextoPlano = lectorArchivoTextoPlano;
+    }
+    
 }
