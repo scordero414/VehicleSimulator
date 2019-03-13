@@ -63,8 +63,8 @@ public class Simulador {
         vehiculo.apagar();
     }
     
-    public boolean desactivarAccionesApagado(String mensaje) throws AccionesApagadoException {
-        if(vehiculo.desactivarAccionesApagado(mensaje)) 
+    public boolean desactivarFrenarAcelerarApagado(String mensaje) throws AccionesApagadoException {
+        if(vehiculo.desactivarFrenarAcelerarApagado(mensaje)) 
             return true;
         return false;
     }

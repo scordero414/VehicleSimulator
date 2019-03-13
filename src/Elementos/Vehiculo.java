@@ -81,7 +81,7 @@ public class Vehiculo {
         velocidad = 0;
     }
     
-    public boolean desactivarAccionesApagado(String mensaje) throws AccionesApagadoException {
+    public boolean desactivarFrenarAcelerarApagado(String mensaje) throws AccionesApagadoException {
         if(isEstadoPrendido()) 
             return true;
         return false;

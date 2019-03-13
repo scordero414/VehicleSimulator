@@ -145,7 +145,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
     private void btnAcelerarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMousePressed
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
         try {
-            if(simulador.desactivarAccionesApagado(mensaje)) {
+            if(simulador.desactivarFrenarAcelerarApagado(mensaje)) {
                 milisegs = (System.currentTimeMillis())/1000;
                 generarSonidoAutoAcelerando();
             } else {
@@ -167,7 +167,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
     private void btnFrenoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMousePressed
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
         try {
-            if(simulador.desactivarAccionesApagado(mensaje)) {
+            if(simulador.desactivarFrenarAcelerarApagado(mensaje)) {
                 milisegs = (System.currentTimeMillis())/1000;
                 generarSonidoAutoFrenando(); 
                 dibujarVelocidad();
@@ -194,17 +194,9 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
         String mensaje = "El carro ya está apagado";
-        try {
-            if(simulador.desactivarAccionesApagado(mensaje)) {
-                audioCarroAndando.stop();
-                simulador.apagarVehiculo();
-                dibujarVelocidad();
-            } else {
-                throw new AccionesApagadoException(mensaje);
-            }
-        } catch (AccionesApagadoException e) {
-            JOptionPane.showMessageDialog(null, mensaje);
-        }
+        audioCarroAndando.stop();
+        simulador.apagarVehiculo();
+        dibujarVelocidad();
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
