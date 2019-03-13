@@ -84,7 +84,7 @@ public class Simulador {
         return false;
     }
     
-    public boolean conocerVelocidad(String mensaje) throws FrenadoDetenidoException {
+    public boolean validarFrenarDetenido(String mensaje) throws FrenadoDetenidoException {
         if(vehiculo.frenarDetenido()) 
             return true;
         return false;

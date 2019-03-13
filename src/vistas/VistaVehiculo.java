@@ -170,12 +170,14 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
     private void btnFrenoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMousePressed
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
+        
         try {
             if(simulador.desactivarFrenarAcelerarApagado(mensaje)) {
                 milisegs = (System.currentTimeMillis())/1000;
+                
                 generarSonidoAutoFrenando(); 
                 dibujarVelocidad();
-                frenarMinimo();
+                
             } else {
                 throw new AccionesApagadoException(mensaje);
             }
@@ -187,16 +189,18 @@ public class VistaVehiculo extends javax.swing.JFrame {
     public void frenarMinimo() {
         String mensaje = "El vehículo ya está detenido no se puede frenar más.";
         try {
-            if(simulador.conocerVelocidad(mensaje)) {
+            if(simulador.validarFrenarDetenido(mensaje)) {
                 throw new FrenadoDetenidoException(mensaje);
             }
         } catch (FrenadoDetenidoException e) {
             JOptionPane.showMessageDialog(null, mensaje);
+            
         }
     }
     
     private void btnFrenoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMouseReleased
         milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
+        frenarMinimo();
         simulador.frenarVehiculo(milisegs2);
         dibujarVelocidad();
         audioCarroFreno.stop();
