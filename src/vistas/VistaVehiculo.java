@@ -141,7 +141,8 @@ public class VistaVehiculo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAcelerarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMousePressed
-        milisegs = (System.currentTimeMillis())/1000;
+        //milisegs = (System.currentTimeMillis())/1000;
+        milisegs = (System.currentTimeMillis())/2000;
         generarSonidoAutoAcelerando();
         
     }//GEN-LAST:event_btnAcelerarMousePressed
@@ -174,11 +175,14 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
         audioCarroAndando.stop();
+        simulador.apagarVehiculo();
+        dibujarVelocidad();
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
         generarSonidoAutoPrendiendo();
         generarSonidoAutoMarcha();
+        simulador.prenderVehiculo();
         dibujarVelocidad();
     }//GEN-LAST:event_btnEncenderActionPerformed
 
@@ -222,7 +226,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
      */
     public void generarSonidoAutoFrenando() {
         audioCarroFreno = java.applet.Applet.newAudioClip(getClass().getResource("/Audios/autoFreno.wav"));
-        audioCarroFreno.play();
+        audioCarroFreno.loop();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
