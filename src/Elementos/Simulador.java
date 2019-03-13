@@ -23,7 +23,7 @@ public class Simulador {
     private Vehiculo vehiculo;
     private Taller taller;
     public Simulador() {
-        vehiculo = new Vehiculo(false, false);
+        vehiculo = new Vehiculo(false, false, false);
         taller = new Taller();
         VistaVehiculo vistaVehiculo =  new VistaVehiculo();
         vistaVehiculo.setSimulador(this);

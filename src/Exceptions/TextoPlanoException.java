@@ -5,11 +5,13 @@
  */
 package Exceptions;
 
+import java.io.IOException;
+
 /**
  *
  * @author USUARIO
  */
-public class TextoPlanoException extends Exception {
+public class TextoPlanoException extends IOException {
 
     public TextoPlanoException(String message) {
         super(message);
