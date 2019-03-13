@@ -22,7 +22,7 @@ public class Simulador {
         lector.leerTexto();
         Simulador simulador = new Simulador();
         VistaVehiculo vistaVehiculo =  new VistaVehiculo();
-        Vehiculo vehiculo = new Vehiculo(0,false);
+        Vehiculo vehiculo = new Vehiculo(false, false);
         vistaVehiculo.setSimulador(simulador);
         simulador.setVehiculo(vehiculo);
     }
@@ -34,6 +34,12 @@ public class Simulador {
     }
     public float extraerVelocidad(){
         return vehiculo.getVelocidad();
+    }
+    public void prenderVehiculo(){
+        vehiculo.prender();
+    }
+    public void apagarVehiculo(){
+        vehiculo.apagar();
     }
     
 
