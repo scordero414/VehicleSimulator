@@ -11,8 +11,8 @@ package Elementos;
  */
 public class Motor2000 extends Motor {
     
-    public Motor2000(int cilindraje, int velocidadMaxima) {
-        super(cilindraje, velocidadMaxima);
+    public Motor2000(int velocidadMaxima) {
+        super(velocidadMaxima);
     }
     
 }
