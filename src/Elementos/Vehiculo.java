@@ -78,7 +78,6 @@ public class Vehiculo {
             velocidad -= frenado * 20;
             determinarVelocidadNegativa();
         }
-        
     }
     public void prender(){
         estadoPrendido = true;

@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Se lee y se busca el archivo del texto, conociendo los datos deseados.
@@ -30,9 +32,13 @@ public class LectorArchivoTextoPlano implements Lector {
      * cilindraje del motor, guardados n el archivo de texto.
      */
     private String arr[];
+
+    public LectorArchivoTextoPlano() {
+        leerTexto();
+    }
     
     @Override
-    public void leerTexto() throws IOException {
+    public void leerTexto(){
             
         File file = new File(texto);
         
@@ -44,6 +50,9 @@ public class LectorArchivoTextoPlano implements Lector {
             }
         } catch (TextoPlanoException ex) {
             System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+            //Logger.getLogger(LectorArchivoTextoPlano.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
