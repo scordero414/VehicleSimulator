@@ -9,28 +9,15 @@ package Elementos;
  *
  * @author USUARIO
  */
-public class Motor {
+public abstract class Motor {
     
-    /**
-     * Cantidad de cilindraje del motor.
-     */
-    private int cilindraje;
     /**
      * Velocidad máxima que resiste el motor con determinado cilindraje.
      */
     private int velocidadMaxima;
 
-    public Motor(int cilindraje, int velocidadMaxima) {
-        this.cilindraje = cilindraje;
+    public Motor(int velocidadMaxima) {
         this.velocidadMaxima = velocidadMaxima;
-    }
-
-    public int getCilindraje() {
-        return cilindraje;
-    }
-
-    public void setCilindraje(int cilindraje) {
-        this.cilindraje = cilindraje;
     }
 
     public int getVelocidadMaxima() {
