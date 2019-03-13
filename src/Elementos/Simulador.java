@@ -82,5 +82,9 @@ public class Simulador {
             return true;
         return false;
     }
+    
+    public float conocerVelocidad(String mensaje) {
+        return vehiculo.entregarVelocidad();
+    }
 
 }

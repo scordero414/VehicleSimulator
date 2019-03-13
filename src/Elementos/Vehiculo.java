@@ -101,6 +101,10 @@ public class Vehiculo {
         return false;
     }
     
+    public float entregarVelocidad() {
+        return getVelocidad();
+    }
+    
     public float getVelocidad() {
         return velocidad;
     }

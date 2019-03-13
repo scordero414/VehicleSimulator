@@ -10,6 +10,7 @@ import Elementos.Vehiculo;
 import Exceptions.AccionesApagadoException;
 import Exceptions.ApagarDeNuevoException;
 import Exceptions.EncenderDeNuevoException;
+import Exceptions.FrenadoDetenidoException;
 import java.applet.AudioClip;
 import javax.swing.JOptionPane;
 
@@ -173,15 +174,26 @@ public class VistaVehiculo extends javax.swing.JFrame {
                 milisegs = (System.currentTimeMillis())/1000;
                 generarSonidoAutoFrenando(); 
                 dibujarVelocidad();
+                frenarMinimo();
             } else {
                 throw new AccionesApagadoException(mensaje);
             }
         } catch (AccionesApagadoException e) {
             JOptionPane.showMessageDialog(null, mensaje);
-        }
-        
+        }        
     }//GEN-LAST:event_btnFrenoMousePressed
 
+    public void frenarMinimo() {
+        String mensaje = "El vehículo ya está detenido no se puede frenar más.";
+        try {
+            if(simulador.conocerVelocidad(mensaje) <= 0) {
+                throw new FrenadoDetenidoException(mensaje);
+            }
+        } catch (FrenadoDetenidoException e) {
+            JOptionPane.showMessageDialog(null, mensaje);
+        }
+    }
+    
     private void btnFrenoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMouseReleased
         milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
         simulador.frenarVehiculo(milisegs2);
