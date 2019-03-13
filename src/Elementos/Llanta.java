@@ -9,28 +9,15 @@ package Elementos;
  *
  * @author USUARIO
  */
-public class Llanta {
+public abstract class Llanta {
     
-    /**
-     * Tipo de la llanta (Bueno, Bonito ó Barato).
-     */
-    private String tipo;
     /**
      * Límite de velocidad permitido con un determinado tipo de llantas.
      */
     private int limitePermitido;
 
-    public Llanta(String tipo, int limitePermitido) {
-        this.tipo = tipo;
+    public Llanta(int limitePermitido) {
         this.limitePermitido = limitePermitido;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
     }
 
     public int getLimitePermitido() {

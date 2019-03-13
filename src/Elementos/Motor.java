@@ -9,7 +9,7 @@ package Elementos;
  *
  * @author USUARIO
  */
-public class Motor {
+public abstract class Motor {
     
     /**
      * Cantidad de cilindraje del motor.
