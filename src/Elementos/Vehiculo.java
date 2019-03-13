@@ -5,6 +5,8 @@
  */
 package Elementos;
 
+import Exceptions.AccionesApagadoException;
+
 /**
  *
  * @author USUARIO
@@ -77,6 +79,12 @@ public class Vehiculo {
     public void apagar(){
         estadoPrendido = false;
         velocidad = 0;
+    }
+    
+    public boolean desactivarAccionesApagado(String mensaje) throws AccionesApagadoException {
+        if(isEstadoPrendido()) 
+            return true;
+        return false;
     }
     
     public float getVelocidad() {

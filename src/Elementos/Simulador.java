@@ -63,18 +63,9 @@ public class Simulador {
         vehiculo.apagar();
     }
     
-    public boolean desactivarAccionesApagado(String mensaje) {
-        boolean estadoVehiculo = vehiculo.isEstadoPrendido();
-        
-        try {
-            if(estadoVehiculo) {
-                return true;
-            } else {
-                throw new AccionesApagadoException(mensaje);
-            }
-        } catch(AccionesApagadoException e) {
-            e.getMessage();
-        }
+    public boolean desactivarAccionesApagado(String mensaje) throws AccionesApagadoException {
+        if(vehiculo.desactivarAccionesApagado(mensaje)) 
+            return true;
         return false;
     }
 

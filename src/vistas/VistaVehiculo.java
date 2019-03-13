@@ -7,6 +7,7 @@ package vistas;
 
 import Elementos.Simulador;
 import Elementos.Vehiculo;
+import Exceptions.AccionesApagadoException;
 import java.applet.AudioClip;
 import javax.swing.JOptionPane;
 
@@ -142,14 +143,18 @@ public class VistaVehiculo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAcelerarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMousePressed
-        //milisegs = (System.currentTimeMillis())/1000;
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
-        if(simulador.desactivarAccionesApagado(mensaje)) {
-            milisegs = (System.currentTimeMillis())/2000;
-            generarSonidoAutoAcelerando();
-        } else {
+        try {
+            if(simulador.desactivarAccionesApagado(mensaje)) {
+                milisegs = (System.currentTimeMillis())/2000;
+                generarSonidoAutoAcelerando();
+                JOptionPane.showMessageDialog(null, mensaje);
+            } else {
+                throw new AccionesApagadoException(mensaje);
+            }
+        } catch (AccionesApagadoException e) {
             JOptionPane.showMessageDialog(null, mensaje);
-        }   
+        }
     }//GEN-LAST:event_btnAcelerarMousePressed
 
     private void btnAcelerarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMouseReleased
@@ -162,13 +167,18 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
     private void btnFrenoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMousePressed
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
-        if(simulador.desactivarAccionesApagado(mensaje)) {
-            milisegs = (System.currentTimeMillis())/1000;
-            generarSonidoAutoFrenando(); 
-            dibujarVelocidad();
-        } else {
+        try {
+            if(simulador.desactivarAccionesApagado(mensaje)) {
+                milisegs = (System.currentTimeMillis())/1000;
+                generarSonidoAutoFrenando(); 
+                dibujarVelocidad();
+            } else {
+                throw new AccionesApagadoException(mensaje);
+            }
+        } catch (AccionesApagadoException e) {
             JOptionPane.showMessageDialog(null, mensaje);
         }
+        
     }//GEN-LAST:event_btnFrenoMousePressed
 
     private void btnFrenoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMouseReleased
