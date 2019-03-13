@@ -7,8 +7,8 @@ package vistas;
 
 import Elementos.Simulador;
 import Elementos.Vehiculo;
+import Exceptions.AccidenteException;
 import Exceptions.AccionesApagadoException;
-import Exceptions.ApagarAltaVelocidadException;
 import Exceptions.ApagarDeNuevoException;
 import Exceptions.EncenderDeNuevoException;
 import Exceptions.FrenadoDetenidoException;
@@ -223,11 +223,11 @@ public class VistaVehiculo extends javax.swing.JFrame {
             if(!simulador.frenarAltaVelocidad()) {
                 apagarVehiculo();
             } else {
-                throw new ApagarAltaVelocidadException(mensajeAccidente);
+                throw new AccidenteException(mensajeAccidente);
             }
         } catch (ApagarDeNuevoException e) {
             JOptionPane.showMessageDialog(null, mensaje);
-        } catch (ApagarAltaVelocidadException ex) {
+        } catch (AccidenteException ex) {
             JOptionPane.showMessageDialog(null, mensajeAccidente);
             apagarVehiculo();
         }

@@ -5,8 +5,8 @@
  */
 package Elementos;
 
+import Exceptions.AccidenteException;
 import Exceptions.AccionesApagadoException;
-import Exceptions.ApagarAltaVelocidadException;
 import Exceptions.ApagarDeNuevoException;
 import Exceptions.EncenderDeNuevoException;
 import Exceptions.FrenadoDetenidoException;
@@ -118,7 +118,7 @@ public class Vehiculo {
         return false;
     }
     
-    public boolean frenarAltaVelocidad() throws ApagarAltaVelocidadException {
+    public boolean frenarAltaVelocidad() throws AccidenteException {
         if(velocidad > 60) {
             estadoAccidentado = true;
             return true;
