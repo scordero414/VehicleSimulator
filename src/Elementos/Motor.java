@@ -17,13 +17,13 @@ public abstract class Motor {
     /**
      * Velocidad máxima que resiste el motor con determinado cilindraje.
      */
-    private int velocidadMaxima;
+    private float velocidadMaxima;
 
-    public Motor(int velocidadMaxima) {
+    public Motor(float velocidadMaxima) {
         this.velocidadMaxima = velocidadMaxima;
     }
 
-    public int getVelocidadMaxima() {
+    public float getVelocidadMaxima() {
         return velocidadMaxima;
     }
 
