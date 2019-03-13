@@ -22,6 +22,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
     private long milisegs;
     private long milisegs2;
     private Simulador simulador;
+    private Vehiculo vehiculo;
     
     public void setSimulador(Simulador simulador) {
         this.simulador = simulador;
@@ -186,7 +187,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
     public void frenarMinimo() {
         String mensaje = "El vehículo ya está detenido no se puede frenar más.";
         try {
-            if(simulador.conocerVelocidad(mensaje) <= 0) {
+            if(simulador.conocerVelocidad(mensaje)) {
                 throw new FrenadoDetenidoException(mensaje);
             }
         } catch (FrenadoDetenidoException e) {
@@ -224,7 +225,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
     private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
         String mensaje = "El vehículo ya está encendido y listo para funcionar.";
         try {
-            if(simulador.desactivarEncenderEncendido(mensaje)) {
+            if(!simulador.desactivarEncenderEncendido(mensaje)) {
                 generarSonidoAutoPrendiendo();
                 generarSonidoAutoMarcha();
                 simulador.prenderVehiculo();

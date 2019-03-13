@@ -8,6 +8,7 @@ package Elementos;
 import Exceptions.AccionesApagadoException;
 import Exceptions.ApagarDeNuevoException;
 import Exceptions.EncenderDeNuevoException;
+import Exceptions.FrenadoDetenidoException;
 import vistas.VistaVehiculo;
 
 /**
@@ -83,8 +84,10 @@ public class Simulador {
         return false;
     }
     
-    public float conocerVelocidad(String mensaje) {
-        return vehiculo.entregarVelocidad();
+    public boolean conocerVelocidad(String mensaje) throws FrenadoDetenidoException {
+        if(vehiculo.frenarDetenido()) 
+            return true;
+        return false;
     }
 
 }

@@ -8,6 +8,7 @@ package Elementos;
 import Exceptions.AccionesApagadoException;
 import Exceptions.ApagarDeNuevoException;
 import Exceptions.EncenderDeNuevoException;
+import Exceptions.FrenadoDetenidoException;
 
 /**
  *
@@ -101,15 +102,19 @@ public class Vehiculo {
         return false;
     }
     
-    public float entregarVelocidad() {
-        return getVelocidad();
+    public boolean frenarDetenido() throws FrenadoDetenidoException {
+        if(getVelocidad() <= 0) {
+            setVelocidad(0);
+            return true;
+        }
+        return false;
     }
     
     public float getVelocidad() {
         return velocidad;
     }
 
-    public void setVelocidad(int velocidad) {
+    public void setVelocidad(float velocidad) {
         this.velocidad = velocidad;
     }
 
