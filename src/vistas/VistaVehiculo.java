@@ -8,6 +8,7 @@ package vistas;
 import Elementos.Simulador;
 import Elementos.Vehiculo;
 import java.applet.AudioClip;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -162,11 +163,17 @@ public class VistaVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFrenoMousePressed
 
     private void btnFrenoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMouseReleased
-        milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
-        simulador.frenarVehiculo(milisegs2);
-        dibujarVelocidad();
-        audioCarroFreno.stop();
-        System.out.println("Me presionaron : "+milisegs2+" segundos");
+        String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
+        if(simulador.desactivarAccionesApagado(mensaje)) {
+            milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
+            simulador.frenarVehiculo(milisegs2);
+            dibujarVelocidad();
+            audioCarroFreno.stop();
+            System.out.println("Me presionaron : "+milisegs2+" segundos");
+        } else {
+            JOptionPane.showMessageDialog(null, mensaje);
+        }
+        
     }//GEN-LAST:event_btnFrenoMouseReleased
 
     private void btnFrenoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMouseClicked
@@ -180,10 +187,17 @@ public class VistaVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
-        generarSonidoAutoPrendiendo();
-        generarSonidoAutoMarcha();
-        simulador.prenderVehiculo();
-        dibujarVelocidad();
+        String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
+        if(simulador.desactivarAccionesApagado(mensaje)) {
+            simulador.desactivarAccionesApagado(mensaje);
+            generarSonidoAutoPrendiendo();
+            generarSonidoAutoMarcha();
+            simulador.prenderVehiculo();
+            dibujarVelocidad();
+        } else {
+            JOptionPane.showMessageDialog(null, mensaje);
+        }
+        
     }//GEN-LAST:event_btnEncenderActionPerformed
 
     private void btnAcelerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcelerarActionPerformed

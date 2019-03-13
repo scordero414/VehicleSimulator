@@ -5,6 +5,7 @@
  */
 package Elementos;
 
+import Exceptions.AccionesApagadoException;
 import vistas.VistaVehiculo;
 
 /**
@@ -62,5 +63,19 @@ public class Simulador {
         vehiculo.apagar();
     }
     
+    public boolean desactivarAccionesApagado(String mensaje) {
+        boolean estadoVehiculo = vehiculo.isEstadoPrendido();
+        
+        try {
+            if(estadoVehiculo) {
+                return true;
+            } else {
+                throw new AccionesApagadoException(mensaje);
+            }
+        } catch(AccionesApagadoException e) {
+            e.getMessage();
+        }
+        return false;
+    }
 
 }
