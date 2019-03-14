@@ -83,7 +83,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
                 btnAcelerarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAcelerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 720, 90, 140));
+        getContentPane().add(btnAcelerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 520, 90, 140));
 
         btnFreno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PedalFr.png"))); // NOI18N
         btnFreno.setBorderPainted(false);
@@ -100,7 +100,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
                 btnFrenoMouseReleased(evt);
             }
         });
-        getContentPane().add(btnFreno, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 730, 80, 110));
+        getContentPane().add(btnFreno, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 550, 80, 110));
 
         btnApagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/On_Off.png"))); // NOI18N
         btnApagar.setBorderPainted(false);
@@ -242,7 +242,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
         String mensajeAccidente = "Hey! Haz pagado el vehìculo a una gran velocidad, te accidentarás y se te apagará el vehículo.";
         
         try {
-            if(simulador.desactivarApagarApagado(mensaje)) {
+            if(!simulador.desactivarApagarApagado(mensaje)) {
                 throw new ApagarDeNuevoException(mensaje);
             }
             if(!simulador.frenarAltaVelocidad()) {
