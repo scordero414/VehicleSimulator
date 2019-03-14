@@ -70,32 +70,40 @@ public class Simulador {
         vehiculo.apagar();
     }
     
-    public boolean desactivarFrenarAcelerarApagado(String mensaje) throws AccionesApagadoException {
-        return vehiculo.desactivarFrenarAcelerarApagado(mensaje);
+    public boolean desactivarFrenarAcelerarApagado() throws AccionesApagadoException {
+        return vehiculo.desactivarFrenarAcelerarApagado();
     }
     
-    public boolean desactivarApagarApagado(String mensaje) throws ApagarDeNuevoException {
-        return vehiculo.desactivarApagarApagado(mensaje);
+    public boolean desactivarApagarApagado() throws ApagarDeNuevoException {
+        return vehiculo.desactivarApagarApagado();
     }
     
-    public boolean desactivarEncenderEncendido(String mensaje) throws EncenderDeNuevoException{
-        return vehiculo.desactivarEncenderEncendido(mensaje);
+    public boolean desactivarEncenderEncendido() throws EncenderDeNuevoException{
+        return vehiculo.desactivarEncenderEncendido();
     }
     
-    public boolean validarFrenarDetenido(String mensaje) throws FrenadoDetenidoException {
+    public boolean validarFrenarDetenido() throws FrenadoDetenidoException {
         return vehiculo.frenarDetenido();
     }
     
     public boolean frenarAltaVelocidad() throws AccidenteException {
         return vehiculo.frenarAltaVelocidad();
+       
     }
 
     public boolean sobrePasarVelocidadLlantas() throws PatinarException{
         return vehiculo.sobrePasarVelocidadLlantas();
     }
     
+    public boolean sobrepasarLimiteMotor() throws AccidenteException{
+        return vehiculo.sobrepasarLimiteMotor();
+    }
     public void patinar(String mensaje) {
         
+    }
+    
+    public boolean entregarEstadoAccidente(){
+        return vehiculo.isEstadoAccidentado();
     }
     
     public void setVehiculo(Vehiculo vehiculo) {

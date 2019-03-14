@@ -41,6 +41,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
+        iniciarVidriosInvisibles();
     }
 
     /**
@@ -60,6 +61,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
         btnEncender = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnReparar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        lblVidrio = new javax.swing.JLabel();
+        lblVidrioLateral = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -144,6 +149,28 @@ public class VistaVehiculo extends javax.swing.JFrame {
         jLabel2.setText("Encender");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 570, -1, -1));
 
+        btnReparar.setBackground(new java.awt.Color(0, 0, 0));
+        btnReparar.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        btnReparar.setForeground(new java.awt.Color(255, 0, 51));
+        btnReparar.setText("Reparar");
+        btnReparar.setToolTipText("");
+        btnReparar.setBorderPainted(false);
+        btnReparar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReparar.setDefaultCapable(false);
+        btnReparar.setFocusPainted(false);
+        getContentPane().add(btnReparar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 90, 270, 120));
+
+        jButton2.setBackground(new java.awt.Color(0, 0, 0));
+        jButton2.setBorderPainted(false);
+        jButton2.setEnabled(false);
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 80, 270, 130));
+
+        lblVidrio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/vidrioRoto (1).png"))); // NOI18N
+        getContentPane().add(lblVidrio, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, -1, 100));
+
+        lblVidrioLateral.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/vidrioLateral.png"))); // NOI18N
+        getContentPane().add(lblVidrioLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 270, 280));
+
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/VehiculoF.jpg"))); // NOI18N
         fondo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -155,7 +182,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
         String mensajePatinar = "El vehículo esta patinando, por favor frena para poder detener el vehículo.";
         try {
-            if(simulador.desactivarFrenarAcelerarApagado(mensaje)) {
+            if(simulador.desactivarFrenarAcelerarApagado()) {
                 milisegs = (System.currentTimeMillis())/1000;
                 generarSonidoAutoAcelerando();
             } else {
@@ -176,20 +203,30 @@ public class VistaVehiculo extends javax.swing.JFrame {
         milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
         simulador.acelerarVehiculo(milisegs2);
         dibujarVelocidad();
+        sobrePasarLimiteMotor();
         audioCarroAcelerando.stop();
         System.out.println("Me presionaron : "+milisegs2+" segundos");
     }//GEN-LAST:event_btnAcelerarMouseReleased
-//    
-//    public boolean verificarVelocidadVehiculo() {
-//        if() 
-//            return true;
-//        return false;
-//    }
+    
+    public void sobrePasarLimiteMotor(){
+        String mensaje = "Pasaste el limite de velocidad del motor, te has accidentado.";
+        try {
+            if(simulador.sobrepasarLimiteMotor()) {
+                audioCarroAcelerando.stop();
+                throw new AccidenteException(mensaje);
+            }
+        } catch (AccidenteException ae) {
+            JOptionPane.showMessageDialog(null, mensaje);
+            apagarVehiculo();
+            activarVidrio();
+            reparar();
+        }
+    }
     
     private void btnFrenoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMousePressed
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
         try {
-            if(simulador.desactivarFrenarAcelerarApagado(mensaje)) {
+            if(simulador.desactivarFrenarAcelerarApagado()) {
                 milisegs = (System.currentTimeMillis())/1000;
                 
                 generarSonidoAutoFrenando(); 
@@ -207,7 +244,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
     public void frenarMinimo() {
         String mensaje = "El vehículo ya está detenido no se puede frenar más.";
         try {
-            if(simulador.validarFrenarDetenido(mensaje)) {
+            if(simulador.validarFrenarDetenido()) {
                 throw new FrenadoDetenidoException(mensaje);
             }
         } catch (FrenadoDetenidoException e) {
@@ -223,6 +260,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
         String mensaje = "El vehículo ha patinado, has frenado bruscamente y tus llantas no soportan tanta tension.";
         try{
             if(verificadorVelocidad){
+                audioCarroFreno.stop();
                 throw new PatinarException(mensaje);
             }
         }catch (PatinarException pe){
@@ -242,7 +280,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
         String mensajeAccidente = "Hey! Haz pagado el vehìculo a una gran velocidad, te accidentarás y se te apagará el vehículo.";
         
         try {
-            if(!simulador.desactivarApagarApagado(mensaje)) {
+            if(!simulador.desactivarApagarApagado()) {
                 throw new ApagarDeNuevoException(mensaje);
             }
             if(!simulador.frenarAltaVelocidad()) {
@@ -255,6 +293,8 @@ public class VistaVehiculo extends javax.swing.JFrame {
         } catch (AccidenteException ex) {
             JOptionPane.showMessageDialog(null, mensajeAccidente);
             apagarVehiculo();
+            activarVidrio();
+            reparar();
         }
     }//GEN-LAST:event_btnApagarActionPerformed
 
@@ -267,7 +307,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
     private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
         String mensaje = "El vehículo ya está encendido y listo para funcionar.";
         try {
-            if(!simulador.desactivarEncenderEncendido(mensaje)) {
+            if(!simulador.desactivarEncenderEncendido()) {
                 generarSonidoAutoPrendiendo();
                 generarSonidoAutoMarcha();
                 simulador.prenderVehiculo();
@@ -287,7 +327,11 @@ public class VistaVehiculo extends javax.swing.JFrame {
     public void patinar() {
         
     }
-    
+    public void reparar(){
+        if(simulador.entregarEstadoAccidente()){
+            btnReparar.setVisible(true);
+        }
+    }
     public void dibujarVelocidad(){
         float velocidad = simulador.extraerVelocidad();
         lblVelocidad.setText(Float.toString(velocidad));
@@ -327,15 +371,28 @@ public class VistaVehiculo extends javax.swing.JFrame {
         audioCarroFreno.loop();
     }
 
+    public void activarVidrio(){
+        lblVidrio.setVisible(true);
+        lblVidrioLateral.setVisible(true);
+    }
+    public void iniciarVidriosInvisibles(){
+        btnReparar.setVisible(false);
+        lblVidrio.setVisible(false);
+        lblVidrioLateral.setVisible(false);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcelerar;
     private javax.swing.JButton btnApagar;
     private javax.swing.JButton btnEncender;
     private javax.swing.JButton btnFreno;
+    private javax.swing.JButton btnReparar;
     private javax.swing.JLabel fondo;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblVelocidad;
+    private javax.swing.JLabel lblVidrio;
+    private javax.swing.JLabel lblVidrioLateral;
     // End of variables declaration//GEN-END:variables
 }

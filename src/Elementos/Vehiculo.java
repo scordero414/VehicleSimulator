@@ -61,11 +61,11 @@ public class Vehiculo {
      */
     public void acelerar(float aceleracion){
         
-        if(aceleracion  > 0){
+        if(aceleracion  >= 0 & aceleracion < 3){
             velocidad += aceleracion * 6;
-        }else if(aceleracion > 3){
+        }else if(aceleracion >= 3 & aceleracion < 5){
             velocidad += aceleracion * 12;
-        }else if(aceleracion > 5){
+        }else if(aceleracion >= 5 & aceleracion < 7){
             velocidad += aceleracion * 16;
         }else if(aceleracion > 7){
             velocidad += aceleracion * 20;
@@ -101,16 +101,24 @@ public class Vehiculo {
         velocidad = 0;
     }
 
-    public boolean desactivarFrenarAcelerarApagado(String mensaje) throws AccionesApagadoException {
+    public boolean desactivarFrenarAcelerarApagado() throws AccionesApagadoException {
         return conocerEstadoVehiculo();
     }
     
-    public boolean desactivarApagarApagado(String mensaje) throws ApagarDeNuevoException {
+    public boolean desactivarApagarApagado() throws ApagarDeNuevoException {
         return conocerEstadoVehiculo();
     }
     
-    public boolean desactivarEncenderEncendido(String mensaje) throws EncenderDeNuevoException{
+    public boolean desactivarEncenderEncendido() throws EncenderDeNuevoException{
         return conocerEstadoVehiculo();
+    }
+    
+    public boolean sobrepasarLimiteMotor() throws AccidenteException{
+        if(velocidad > motor.getVelocidadMaxima()){
+            estadoAccidentado = true;
+            return true;
+        }
+        return false;
     }
     
     public boolean conocerEstadoVehiculo() {
