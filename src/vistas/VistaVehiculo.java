@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import Elementos.Llanta;
 import Elementos.Simulador;
 import Elementos.Vehiculo;
 import Exceptions.AccidenteException;
@@ -21,6 +22,8 @@ import javax.swing.JOptionPane;
  * @author ASUS
  */
 public class VistaVehiculo extends javax.swing.JFrame {
+    
+    private boolean verificadorVelocidad;
     private long milisegs;
     private long milisegs2;
     private Simulador simulador;
@@ -66,7 +69,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
         btnAcelerar.setToolTipText("");
         btnAcelerar.setBorderPainted(false);
         btnAcelerar.setContentAreaFilled(false);
-        btnAcelerar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAcelerar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnAcelerar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnAcelerarMousePressed(evt);
@@ -80,12 +83,12 @@ public class VistaVehiculo extends javax.swing.JFrame {
                 btnAcelerarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAcelerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 710, 90, 140));
+        getContentPane().add(btnAcelerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 470, 90, 140));
 
         btnFreno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PedalFr.png"))); // NOI18N
         btnFreno.setBorderPainted(false);
         btnFreno.setContentAreaFilled(false);
-        btnFreno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFreno.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnFreno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnFrenoMouseClicked(evt);
@@ -97,12 +100,12 @@ public class VistaVehiculo extends javax.swing.JFrame {
                 btnFrenoMouseReleased(evt);
             }
         });
-        getContentPane().add(btnFreno, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 740, 80, 110));
+        getContentPane().add(btnFreno, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 480, 80, 110));
 
         btnApagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/On_Off.png"))); // NOI18N
         btnApagar.setBorderPainted(false);
         btnApagar.setContentAreaFilled(false);
-        btnApagar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnApagar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApagarActionPerformed(evt);
@@ -123,7 +126,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
         btnEncender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/On_Off.png"))); // NOI18N
         btnEncender.setBorderPainted(false);
         btnEncender.setContentAreaFilled(false);
-        btnEncender.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEncender.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEncender.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEncenderActionPerformed(evt);
@@ -169,8 +172,16 @@ public class VistaVehiculo extends javax.swing.JFrame {
         audioCarroAcelerando.stop();
         System.out.println("Me presionaron : "+milisegs2+" segundos");
     }//GEN-LAST:event_btnAcelerarMouseReleased
-
+//    
+//    public boolean verificarVelocidadVehiculo() {
+//        if() 
+//            return true;
+//        return false;
+//    }
+    
     private void btnFrenoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMousePressed
+        verificadorVelocidad = false;
+                
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
         try {
             if(simulador.desactivarFrenarAcelerarApagado(mensaje)) {
@@ -184,7 +195,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
             }
         } catch (AccionesApagadoException e) {
             JOptionPane.showMessageDialog(null, mensaje);
-        }        
+        }
+        if(simulador.sobrePasarVelocidadLlantas())
+            verificadorVelocidad = true;
+                
     }//GEN-LAST:event_btnFrenoMousePressed
 
     public void frenarMinimo() {
@@ -202,19 +216,18 @@ public class VistaVehiculo extends javax.swing.JFrame {
     public void frenarBruscamenteVelocidadLlanta(){
         String mensaje = "El vehículo ha patinado, has frenado bruscamente y tus llantas no soportan tanta tension.";
         try{
-            if(simulador.sobrePasarVelocidadLlantas()){
+            if(verificadorVelocidad){
                 throw new PatinarException(mensaje);
             }
         }catch (PatinarException pe){
-            //pe.printStackTrace();
             JOptionPane.showMessageDialog(null, mensaje);
         }
     }
     
     private void btnFrenoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMouseReleased
         milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
-        simulador.frenarVehiculo(milisegs2);
         frenarMinimo();
+        simulador.frenarVehiculo(milisegs2);
         frenarBruscamenteVelocidadLlanta();
         dibujarVelocidad();
         audioCarroFreno.stop();
