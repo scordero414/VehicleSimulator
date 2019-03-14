@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  */
 public class VistaVehiculo extends javax.swing.JFrame {
     
-    private boolean verificadorVelocidad = false;
+    private int verificadorVelocidad;
     private long milisegs;
     private long milisegs2;
     private Simulador simulador;
@@ -188,6 +188,9 @@ public class VistaVehiculo extends javax.swing.JFrame {
         String mensajeAccidente = "El vehículo está accidentadom, no puedes utilizarlo hasta que lo repares";
         String mensajePatinar = "El vehículo esta patinando, por favor frena para poder detener el vehículo.";
         try {
+            if(verificadorVelocidad == 2) {
+                throw new PatinarException(mensajePatinar);
+            }
             if(simulador.desactivarFrenarAcelerarApagado()) {
                 milisegs = (System.currentTimeMillis())/1000;
                 generarSonidoAutoAcelerando();
@@ -197,9 +200,6 @@ public class VistaVehiculo extends javax.swing.JFrame {
                 }else{
                     throw new AccionesApagadoException(mensaje);
                 }
-            }
-            if(verificadorVelocidad) {
-                throw new PatinarException(mensajePatinar);
             }
         } catch (AccionesApagadoException e) {
             JOptionPane.showMessageDialog(null, mensaje);
@@ -236,7 +236,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
     
     private void btnFrenoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMousePressed
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
-        String mensajeAccidente = "El vehículo está accidentadom, no puedes utilizarlo hasta que lo repares";
+        String mensajeAccidente = "El vehículo está accidentado, no puedes utilizarlo hasta que lo repares";
         try {
             if(simulador.desactivarFrenarAcelerarApagado()) {
                 milisegs = (System.currentTimeMillis())/1000;
@@ -253,8 +253,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
         }catch (AccidenteException ae){
             JOptionPane.showMessageDialog(null, mensajeAccidente);
         }
+        
         if(simulador.sobrePasarVelocidadLlantas())
-            verificadorVelocidad = true;
+            verificadorVelocidad = 1;
+        
     }//GEN-LAST:event_btnFrenoMousePressed
 
     public void frenarMinimo() {
@@ -273,19 +275,21 @@ public class VistaVehiculo extends javax.swing.JFrame {
         milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
         frenarMinimo();
         simulador.frenarVehiculo(milisegs2);
-        String mensaje = "El vehículo ha patinado, has frenado bruscamente y tus llantas no soportan tanta tension.";
-        try{
-            if(verificadorVelocidad){
-                audioCarroFreno.stop();
-                throw new PatinarException(mensaje);
-            }
-        }catch (PatinarException pe){
-            JOptionPane.showMessageDialog(null, mensaje);
-            patinar();
-        }
+        patinar();
         dibujarVelocidad();
         audioCarroFreno.stop();
         System.out.println("Me presionaron : "+milisegs2+" segundos");
+        String mensaje = "El vehículo ha patinado, has frenado bruscamente y tus llantas no soportan tanta tension.";
+        try{
+            if(verificadorVelocidad == 1){
+                dibujarVelocidad();
+                audioCarroFreno.stop();
+                throw new PatinarException(mensaje);
+            } 
+        }catch (PatinarException pe){
+            JOptionPane.showMessageDialog(null, mensaje);
+            verificadorVelocidad = 2;
+        }
     }//GEN-LAST:event_btnFrenoMouseReleased
 
     private void btnFrenoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMouseClicked
@@ -295,8 +299,12 @@ public class VistaVehiculo extends javax.swing.JFrame {
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
         String mensaje = "El carro ya está apagado";
         String mensajeAccidente = "Te haz accidentado!!!! Haz pagado el vehìculo a una velocidad no permitida, se te apagará el vehículo.";
+        String mensajePatinar = "El vehículo esta patinando, por favor frena para poder detener el vehículo.";
         
         try {
+            if(verificadorVelocidad == 2) {
+                throw new PatinarException(mensajePatinar);
+            }
             if(!simulador.desactivarApagarApagado()) {
                 throw new ApagarDeNuevoException(mensaje);
             }
@@ -311,8 +319,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
         } catch (ApagarDeNuevoException e) {
             JOptionPane.showMessageDialog(null, mensaje);
         } catch (AccidenteException ex) {
-            JOptionPane.showMessageDialog(null, mensajeAccidente);
-            
+            JOptionPane.showMessageDialog(null, mensajeAccidente);   
+        } catch (PatinarException pe) {
+            JOptionPane.showMessageDialog(null, mensajePatinar);
+            audioCarroAcelerando.stop();
         }
     }//GEN-LAST:event_btnApagarActionPerformed
 
@@ -355,7 +365,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
     
     public void patinar() {
         if(simulador.detenerPatinado())
-            verificadorVelocidad = false;
+            verificadorVelocidad = 0;
     }
     
     public void activarReparacion(){
