@@ -111,7 +111,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
                 btnApagarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnApagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1550, 520, 60, 50));
+        getContentPane().add(btnApagar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1260, 620, 60, 50));
 
         lblVelocidad.setFont(new java.awt.Font("Verdana", 3, 36)); // NOI18N
         lblVelocidad.setForeground(new java.awt.Color(204, 204, 204));
@@ -168,6 +168,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, mensaje);
         } catch (PatinarException pe) {
             JOptionPane.showMessageDialog(null, mensajePatinar);
+            audioCarroAcelerando.stop();
         }
     }//GEN-LAST:event_btnAcelerarMousePressed
 
@@ -201,7 +202,6 @@ public class VistaVehiculo extends javax.swing.JFrame {
         }
         if(simulador.sobrePasarVelocidadLlantas())
             verificadorVelocidad = true;
-                
     }//GEN-LAST:event_btnFrenoMousePressed
 
     public void frenarMinimo() {
