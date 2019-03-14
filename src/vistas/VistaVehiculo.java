@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  */
 public class VistaVehiculo extends javax.swing.JFrame {
     
-    private int verificadorVelocidad;
+    private int verificadorVelocidad = 0;
     private long milisegs;
     private long milisegs2;
     private Simulador simulador;
@@ -242,8 +242,6 @@ public class VistaVehiculo extends javax.swing.JFrame {
                 verificadorVelocidad = 1;
         
         try {
-
-
             if(simulador.desactivarFrenarAcelerarApagado()) {
                 milisegs = (System.currentTimeMillis())/1000;
                 generarSonidoAutoFrenando(); 
