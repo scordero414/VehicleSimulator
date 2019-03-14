@@ -12,7 +12,6 @@ import Exceptions.EncenderDeNuevoException;
 import Exceptions.FrenadoDetenidoException;
 import Exceptions.PatinarException;
 import Exceptions.PatinarFrenadoBruscoException;
-
 /**
  *
  * @author USUARIO
@@ -102,30 +101,33 @@ public class Vehiculo {
     }
 
     public boolean desactivarFrenarAcelerarApagado() throws AccionesApagadoException {
-        return conocerEstadoVehiculo();
+        return conocerEstadoPrendidoVehiculo();
     }
     
     public boolean desactivarApagarApagado() throws ApagarDeNuevoException {
-        return conocerEstadoVehiculo();
+        return conocerEstadoPrendidoVehiculo();
     }
     
     public boolean desactivarEncenderEncendido() throws EncenderDeNuevoException{
-        return conocerEstadoVehiculo();
+        return conocerEstadoPrendidoVehiculo();
     }
-    
     public boolean sobrepasarLimiteMotor() throws AccidenteException{
         if(velocidad > motor.getVelocidadMaxima()){
             estadoAccidentado = true;
+            desactivarApagarApagado();
+            desactivarEncenderEncendido();
+            desactivarFrenarAcelerarApagado();
             return true;
         }
         return false;
     }
     
-    public boolean conocerEstadoVehiculo() {
+    public boolean conocerEstadoPrendidoVehiculo() {
         if(isEstadoPrendido()) 
             return true;
         return false;
     }
+
     
     public boolean frenarDetenido() throws FrenadoDetenidoException {
         if(velocidad <= 0) {

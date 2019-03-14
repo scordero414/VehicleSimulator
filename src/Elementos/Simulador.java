@@ -105,6 +105,14 @@ public class Simulador {
         return false;
     }
     
+    public void cambiarEstadoAccidentado(){
+        vehiculo.setEstadoAccidentado(false);
+    }
+    
+    public void patinar(String mensaje) {
+        
+    }
+    
     public boolean entregarEstadoAccidente(){
         return vehiculo.isEstadoAccidentado();
     }
