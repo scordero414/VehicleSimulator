@@ -61,12 +61,15 @@ public class Vehiculo {
     public void acelerar(float aceleracion){
         
         if(aceleracion  >= 0 & aceleracion < 3){
+            if(aceleracion == 0){
+                velocidad += 1 * 2;
+            }
             velocidad += aceleracion * 6;
         }else if(aceleracion >= 3 & aceleracion < 5){
             velocidad += aceleracion * 12;
         }else if(aceleracion >= 5 & aceleracion < 7){
             velocidad += aceleracion * 16;
-        }else if(aceleracion > 7){
+        }else if(aceleracion >= 7){
             velocidad += aceleracion * 20;
         }
     }

@@ -39,9 +39,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
      */
     public VistaVehiculo() {
         initComponents();
-        setVisible(true);
         setLocationRelativeTo(null);
+        VistaMenuPrincipal vistaMenuPrincipal = new VistaMenuPrincipal(this, true);
         iniciarVidriosInvisibles();
+        decidirBotonesMenu(vistaMenuPrincipal);
     }
 
     /**
@@ -65,6 +66,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         lblVidrio = new javax.swing.JLabel();
         lblVidrioLateral = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -176,6 +178,19 @@ public class VistaVehiculo extends javax.swing.JFrame {
         lblVidrioLateral.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/vidrioLateral.png"))); // NOI18N
         getContentPane().add(lblVidrioLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 270, 280));
 
+        btnSalir.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalir.setText("Salir del vehiculo.");
+        btnSalir.setBorderPainted(false);
+        btnSalir.setContentAreaFilled(false);
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 160, 180));
+
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/VehiculoF.jpg"))); // NOI18N
         fondo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -215,12 +230,12 @@ public class VistaVehiculo extends javax.swing.JFrame {
         milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
         simulador.acelerarVehiculo(milisegs2);
         dibujarVelocidad();
-        sobrePasarLimiteMotor();
+        verificarSobrePasarLimiteMotor();
         audioCarroAcelerando.stop();
         System.out.println("Me presionaron : "+milisegs2+" segundos");
     }//GEN-LAST:event_btnAcelerarMouseReleased
     
-    public void sobrePasarLimiteMotor(){
+    public void verificarSobrePasarLimiteMotor(){
         String mensaje = "Pasaste el limite de velocidad del motor, te has accidentado.";
         try {
             if(simulador.sobrepasarLimiteMotor()) {
@@ -351,6 +366,12 @@ public class VistaVehiculo extends javax.swing.JFrame {
     private void btnRepararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepararActionPerformed
         reparar();
     }//GEN-LAST:event_btnRepararActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        setVisible(false);
+        apagarVehiculo();
+        crearDialogoPrincipal();
+    }//GEN-LAST:event_btnSalirActionPerformed
     
     public void patinar() {
         
@@ -438,12 +459,53 @@ public class VistaVehiculo extends javax.swing.JFrame {
         lblVidrio.setVisible(false);
         lblVidrioLateral.setVisible(false);
     }
+    
+    /**
+     * Se define las acciones de los botones de la Vista Principal.
+     * @param vistaMenuPrincipal vista en la cual se encuentran los estados.
+     */
+   public void decidirBotonesMenu(VistaMenuPrincipal vistaMenuPrincipal) {
+        switch(vistaMenuPrincipal.getEstado()){
+            case 1:
+                this.setVisible(true);
+            break;
+            case 2:
+                //crearDialogoTaller();
+                VistaTaller vistaTaller = new VistaTaller(this, true);
+                decidirBotonesTalleres(vistaTaller);
+            break;
+        }
+    }
+   
+   /**
+     * Se define las acciones de los botones de la Vista Principal.
+     * @param vistaMenuPrincipal vista en la cual se encuentran los estados.
+     */
+   public void decidirBotonesTalleres(VistaTaller vistaTaller) {
+        switch(vistaTaller.getEstadoTaller()){
+            case 1:
+                crearDialogoPrincipal();
+            break;
+            case 2:
+                //crearDialogoTaller();
+            break;
+        }
+    }
+   
+   public void crearDialogoPrincipal(){
+       VistaMenuPrincipal vistaMenuPrincipal = new VistaMenuPrincipal(this, true);
+       decidirBotonesMenu(vistaMenuPrincipal);
+   }
+   public void crearDialogoTaller(){
+       VistaTaller vistaTaller = new VistaTaller(this, true);
+   }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcelerar;
     private javax.swing.JButton btnApagar;
     private javax.swing.JButton btnEncender;
     private javax.swing.JButton btnFreno;
     private javax.swing.JButton btnReparar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel fondo;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
