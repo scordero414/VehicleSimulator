@@ -98,6 +98,11 @@ public class Simulador {
     public boolean sobrepasarLimiteMotor() throws AccidenteException{
         return vehiculo.sobrepasarLimiteMotor();
     }
+    
+    public void cambiarEstadoAccidentado(){
+        vehiculo.setEstadoAccidentado(false);
+    }
+    
     public void patinar(String mensaje) {
         
     }

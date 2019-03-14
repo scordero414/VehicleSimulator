@@ -74,7 +74,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
         btnAcelerar.setToolTipText("");
         btnAcelerar.setBorderPainted(false);
         btnAcelerar.setContentAreaFilled(false);
-        btnAcelerar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnAcelerar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAcelerar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 btnAcelerarMousePressed(evt);
@@ -93,7 +93,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
         btnFreno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PedalFr.png"))); // NOI18N
         btnFreno.setBorderPainted(false);
         btnFreno.setContentAreaFilled(false);
-        btnFreno.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnFreno.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnFreno.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnFrenoMouseClicked(evt);
@@ -110,7 +110,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
         btnApagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/On_Off.png"))); // NOI18N
         btnApagar.setBorderPainted(false);
         btnApagar.setContentAreaFilled(false);
-        btnApagar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnApagar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnApagar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApagarActionPerformed(evt);
@@ -131,7 +131,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
         btnEncender.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/On_Off.png"))); // NOI18N
         btnEncender.setBorderPainted(false);
         btnEncender.setContentAreaFilled(false);
-        btnEncender.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnEncender.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEncender.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEncenderActionPerformed(evt);
@@ -158,6 +158,11 @@ public class VistaVehiculo extends javax.swing.JFrame {
         btnReparar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnReparar.setDefaultCapable(false);
         btnReparar.setFocusPainted(false);
+        btnReparar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRepararActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnReparar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 90, 270, 120));
 
         jButton2.setBackground(new java.awt.Color(0, 0, 0));
@@ -180,13 +185,18 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
     private void btnAcelerarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMousePressed
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
+        String mensajeAccidente = "El vehículo está accidentadom, no puedes utilizarlo hasta que lo repares";
         String mensajePatinar = "El vehículo esta patinando, por favor frena para poder detener el vehículo.";
         try {
             if(simulador.desactivarFrenarAcelerarApagado()) {
                 milisegs = (System.currentTimeMillis())/1000;
                 generarSonidoAutoAcelerando();
             } else {
-                throw new AccionesApagadoException(mensaje);
+                if(simulador.entregarEstadoAccidente()){
+                    throw new AccidenteException(mensajeAccidente);
+                }else{
+                    throw new AccionesApagadoException(mensaje);
+                }
             }
             if(verificadorVelocidad) {
                 throw new PatinarException(mensajePatinar);
@@ -196,6 +206,8 @@ public class VistaVehiculo extends javax.swing.JFrame {
         } catch (PatinarException pe) {
             JOptionPane.showMessageDialog(null, mensajePatinar);
             audioCarroAcelerando.stop();
+        }catch (AccidenteException ae){
+            JOptionPane.showMessageDialog(null, mensajeAccidente);
         }
     }//GEN-LAST:event_btnAcelerarMousePressed
 
@@ -213,29 +225,33 @@ public class VistaVehiculo extends javax.swing.JFrame {
         try {
             if(simulador.sobrepasarLimiteMotor()) {
                 audioCarroAcelerando.stop();
+                iniciarAccidente();
                 throw new AccidenteException(mensaje);
             }
         } catch (AccidenteException ae) {
             JOptionPane.showMessageDialog(null, mensaje);
-            apagarVehiculo();
-            activarVidrio();
-            reparar();
+            
         }
     }
     
     private void btnFrenoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMousePressed
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
+        String mensajeAccidente = "El vehículo está accidentadom, no puedes utilizarlo hasta que lo repares";
         try {
             if(simulador.desactivarFrenarAcelerarApagado()) {
                 milisegs = (System.currentTimeMillis())/1000;
-                
                 generarSonidoAutoFrenando(); 
                 dibujarVelocidad();
             } else {
+                if(simulador.entregarEstadoAccidente()){
+                    throw new AccidenteException(mensajeAccidente);
+                }
                 throw new AccionesApagadoException(mensaje);
             }
         } catch (AccionesApagadoException e) {
             JOptionPane.showMessageDialog(null, mensaje);
+        }catch (AccidenteException ae){
+            JOptionPane.showMessageDialog(null, mensajeAccidente);
         }
         if(simulador.sobrePasarVelocidadLlantas())
             verificadorVelocidad = true;
@@ -277,7 +293,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
         String mensaje = "El carro ya está apagado";
-        String mensajeAccidente = "Hey! Haz pagado el vehìculo a una gran velocidad, te accidentarás y se te apagará el vehículo.";
+        String mensajeAccidente = "Te haz accidentado!!!! Haz pagado el vehìculo a una velocidad no permitida, se te apagará el vehículo.";
         
         try {
             if(!simulador.desactivarApagarApagado()) {
@@ -286,15 +302,16 @@ public class VistaVehiculo extends javax.swing.JFrame {
             if(!simulador.frenarAltaVelocidad()) {
                 apagarVehiculo();
             } else {
-                throw new AccidenteException(mensajeAccidente);
+                if(simulador.entregarEstadoAccidente()){
+                    iniciarAccidente();
+                    throw new AccidenteException(mensajeAccidente);
+                }
             }
         } catch (ApagarDeNuevoException e) {
             JOptionPane.showMessageDialog(null, mensaje);
         } catch (AccidenteException ex) {
             JOptionPane.showMessageDialog(null, mensajeAccidente);
-            apagarVehiculo();
-            activarVidrio();
-            reparar();
+            
         }
     }//GEN-LAST:event_btnApagarActionPerformed
 
@@ -306,32 +323,50 @@ public class VistaVehiculo extends javax.swing.JFrame {
     
     private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
         String mensaje = "El vehículo ya está encendido y listo para funcionar.";
+        String mensajeAccidente = "El vehículo está accidentadom, no puedes utilizarlo hasta que lo repares";
         try {
-            if(!simulador.desactivarEncenderEncendido()) {
-                generarSonidoAutoPrendiendo();
-                generarSonidoAutoMarcha();
-                simulador.prenderVehiculo();
-                dibujarVelocidad();
-            } else {
-                throw new EncenderDeNuevoException(mensaje);
+            if(simulador.entregarEstadoAccidente()){
+                throw new AccidenteException(mensajeAccidente);
+            }else{
+                if(!simulador.desactivarEncenderEncendido()) {
+                    generarSonidoAutoPrendiendo();
+                    generarSonidoAutoMarcha();
+                    simulador.prenderVehiculo();
+                    dibujarVelocidad();
+                } else {
+                    throw new EncenderDeNuevoException(mensaje);
+                }
             }
         } catch (EncenderDeNuevoException e) {
             JOptionPane.showMessageDialog(null, mensaje);
+        } catch (AccidenteException ae){
+            JOptionPane.showMessageDialog(null, mensajeAccidente);
         }
     }//GEN-LAST:event_btnEncenderActionPerformed
 
     private void btnAcelerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcelerarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAcelerarActionPerformed
+
+    private void btnRepararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepararActionPerformed
+        reparar();
+    }//GEN-LAST:event_btnRepararActionPerformed
     
     public void patinar() {
         
     }
-    public void reparar(){
+    
+    public void activarReparacion(){
         if(simulador.entregarEstadoAccidente()){
             btnReparar.setVisible(true);
         }
     }
+    
+    public void reparar(){
+        desactivarVidrios();
+        simulador.cambiarEstadoAccidentado();
+    }
+    
     public void dibujarVelocidad(){
         float velocidad = simulador.extraerVelocidad();
         lblVelocidad.setText(Float.toString(velocidad));
@@ -362,6 +397,16 @@ public class VistaVehiculo extends javax.swing.JFrame {
         audioCarroPrendiendo = java.applet.Applet.newAudioClip(getClass().getResource("/Audios/autoPrendiendo.wav"));
         audioCarroPrendiendo.play();
     }
+    
+    private AudioClip audioCarroAccidente;
+    /**
+     * Se genera el sonido del auto prendiendo.
+     */
+    public void generarSonidoAutoChoque() {
+        audioCarroPrendiendo = java.applet.Applet.newAudioClip(getClass().getResource("/Audios/choque.wav"));
+        audioCarroPrendiendo.play();
+    }
+    
      private AudioClip audioCarroFreno;
     /**
      * Se genera el sonido del auto prendiendo.
@@ -370,10 +415,23 @@ public class VistaVehiculo extends javax.swing.JFrame {
         audioCarroFreno = java.applet.Applet.newAudioClip(getClass().getResource("/Audios/autoFreno.wav"));
         audioCarroFreno.loop();
     }
-
+    
+    public void iniciarAccidente(){
+        apagarVehiculo();
+        generarSonidoAutoChoque();
+        activarVidrio();
+        activarReparacion();
+        //desactivarAccionesVehiculo();
+    }
+    
     public void activarVidrio(){
         lblVidrio.setVisible(true);
         lblVidrioLateral.setVisible(true);
+    }
+    public void desactivarVidrios(){
+        lblVidrio.setVisible(false);
+        lblVidrioLateral.setVisible(false);
+        btnReparar.setVisible(false);
     }
     public void iniciarVidriosInvisibles(){
         btnReparar.setVisible(false);
