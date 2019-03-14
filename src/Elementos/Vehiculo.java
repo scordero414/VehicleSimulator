@@ -147,7 +147,7 @@ public class Vehiculo {
     }
     
     public boolean sobrePasarVelocidadLlantas() throws PatinarException{
-        if(velocidad > llanta.getLimitePermitido() & estadoFrenoBrusco) {
+        if(velocidad > llanta.getLimitePermitido() && estadoFrenoBrusco == true) {
             estadoPatinado = true;
             return true;
         }

@@ -237,7 +237,13 @@ public class VistaVehiculo extends javax.swing.JFrame {
     private void btnFrenoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMousePressed
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
         String mensajeAccidente = "El vehículo está accidentado, no puedes utilizarlo hasta que lo repares";
+        
+        if(simulador.sobrePasarVelocidadLlantas())
+                verificadorVelocidad = 1;
+        
         try {
+
+
             if(simulador.desactivarFrenarAcelerarApagado()) {
                 milisegs = (System.currentTimeMillis())/1000;
                 generarSonidoAutoFrenando(); 
@@ -253,10 +259,6 @@ public class VistaVehiculo extends javax.swing.JFrame {
         }catch (AccidenteException ae){
             JOptionPane.showMessageDialog(null, mensajeAccidente);
         }
-        
-        if(simulador.sobrePasarVelocidadLlantas())
-            verificadorVelocidad = 1;
-        
     }//GEN-LAST:event_btnFrenoMousePressed
 
     public void frenarMinimo() {
@@ -290,6 +292,8 @@ public class VistaVehiculo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, mensaje);
             verificadorVelocidad = 2;
         }
+        System.out.println(verificadorVelocidad);
+        
     }//GEN-LAST:event_btnFrenoMouseReleased
 
     private void btnFrenoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMouseClicked
