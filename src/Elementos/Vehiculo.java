@@ -46,7 +46,7 @@ public class Vehiculo {
     /**
      * El estado en que está el vehículo cuando frena (Patinando).
      */
-    private boolean estadoPatinado;
+    private boolean estadoPatinado = false;
 
     public Vehiculo(boolean estadoPrendido, boolean estadoAccidentado, boolean estadoPatinado) {
         this.estadoPrendido = estadoPrendido;
@@ -94,6 +94,7 @@ public class Vehiculo {
             determinarVelocidadNegativa();
         }
     }
+    
     public void prender(){
         estadoPrendido = true;
         velocidad = 0;
@@ -149,7 +150,7 @@ public class Vehiculo {
     }
     
     public boolean sobrePasarVelocidadLlantas() throws PatinarException{
-        if(velocidad > llanta.getLimitePermitido() & estadoFrenoBrusco) {
+        if(velocidad > llanta.getLimitePermitido() && estadoFrenoBrusco == true) {
             estadoPatinado = true;
             return true;
         }
@@ -202,5 +203,11 @@ public class Vehiculo {
         }
     }
     
+    public boolean detenerPatinado() {
+        if(velocidad == 0.0) {
+            return true;
+        }
+        return false;
+    }
     
 }

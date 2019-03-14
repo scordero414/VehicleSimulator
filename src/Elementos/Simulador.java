@@ -100,6 +100,12 @@ public class Simulador {
         return vehiculo.sobrepasarLimiteMotor();
     }
     
+    public boolean detenerPatinado() {
+        if(vehiculo.detenerPatinado())
+            return true;
+        return false;
+    }
+    
     public void cambiarEstadoAccidentado(){
         vehiculo.setEstadoAccidentado(false);
     }
