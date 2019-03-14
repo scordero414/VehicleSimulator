@@ -93,6 +93,11 @@ public class Simulador {
     public boolean sobrePasarVelocidadLlantas() throws PatinarException{
         return vehiculo.sobrePasarVelocidadLlantas();
     }
+    
+    public void patinar(String mensaje) {
+        
+    }
+    
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }

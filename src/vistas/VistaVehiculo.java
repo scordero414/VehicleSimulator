@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
  */
 public class VistaVehiculo extends javax.swing.JFrame {
     
-    private boolean verificadorVelocidad;
+    private boolean verificadorVelocidad = false;
     private long milisegs;
     private long milisegs2;
     private Simulador simulador;
@@ -83,7 +83,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
                 btnAcelerarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAcelerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 470, 90, 140));
+        getContentPane().add(btnAcelerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 720, 90, 140));
 
         btnFreno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/PedalFr.png"))); // NOI18N
         btnFreno.setBorderPainted(false);
@@ -100,7 +100,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
                 btnFrenoMouseReleased(evt);
             }
         });
-        getContentPane().add(btnFreno, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 480, 80, 110));
+        getContentPane().add(btnFreno, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 730, 80, 110));
 
         btnApagar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/On_Off.png"))); // NOI18N
         btnApagar.setBorderPainted(false);
@@ -153,6 +153,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
     private void btnAcelerarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMousePressed
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
+        String mensajePatinar = "El vehículo esta patinando, por favor frena para poder detener el vehículo.";
         try {
             if(simulador.desactivarFrenarAcelerarApagado(mensaje)) {
                 milisegs = (System.currentTimeMillis())/1000;
@@ -160,8 +161,13 @@ public class VistaVehiculo extends javax.swing.JFrame {
             } else {
                 throw new AccionesApagadoException(mensaje);
             }
+            if(verificadorVelocidad) {
+                throw new PatinarException(mensajePatinar);
+            }
         } catch (AccionesApagadoException e) {
             JOptionPane.showMessageDialog(null, mensaje);
+        } catch (PatinarException pe) {
+            JOptionPane.showMessageDialog(null, mensajePatinar);
         }
     }//GEN-LAST:event_btnAcelerarMousePressed
 
@@ -180,8 +186,6 @@ public class VistaVehiculo extends javax.swing.JFrame {
 //    }
     
     private void btnFrenoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMousePressed
-        verificadorVelocidad = false;
-                
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
         try {
             if(simulador.desactivarFrenarAcelerarApagado(mensaje)) {
@@ -189,7 +193,6 @@ public class VistaVehiculo extends javax.swing.JFrame {
                 
                 generarSonidoAutoFrenando(); 
                 dibujarVelocidad();
-                
             } else {
                 throw new AccionesApagadoException(mensaje);
             }
@@ -213,7 +216,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
         }
     }
     
-    public void frenarBruscamenteVelocidadLlanta(){
+    private void btnFrenoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMouseReleased
+        milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
+        frenarMinimo();
+        simulador.frenarVehiculo(milisegs2);
         String mensaje = "El vehículo ha patinado, has frenado bruscamente y tus llantas no soportan tanta tension.";
         try{
             if(verificadorVelocidad){
@@ -222,13 +228,6 @@ public class VistaVehiculo extends javax.swing.JFrame {
         }catch (PatinarException pe){
             JOptionPane.showMessageDialog(null, mensaje);
         }
-    }
-    
-    private void btnFrenoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMouseReleased
-        milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
-        frenarMinimo();
-        simulador.frenarVehiculo(milisegs2);
-        frenarBruscamenteVelocidadLlanta();
         dibujarVelocidad();
         audioCarroFreno.stop();
         System.out.println("Me presionaron : "+milisegs2+" segundos");
@@ -284,6 +283,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
     private void btnAcelerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcelerarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAcelerarActionPerformed
+    
+    public void patinar() {
+        
+    }
     
     public void dibujarVelocidad(){
         float velocidad = simulador.extraerVelocidad();
