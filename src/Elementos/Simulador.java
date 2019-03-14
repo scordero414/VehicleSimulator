@@ -11,6 +11,7 @@ import Exceptions.ApagarDeNuevoException;
 import Exceptions.EncenderDeNuevoException;
 import Exceptions.FrenadoDetenidoException;
 import Exceptions.PatinarException;
+import vistas.VistaMenuPrincipal;
 import vistas.VistaVehiculo;
 
 /**
@@ -26,8 +27,6 @@ public class Simulador {
     public Simulador() {
         vehiculo = new Vehiculo(false, false, false);
         taller = new Taller();
-        VistaVehiculo vistaVehiculo =  new VistaVehiculo();
-        vistaVehiculo.setSimulador(this);
         taller.ensamblarLlantaMotor(vehiculo);
         System.out.println(vehiculo.getLlanta().getLimitePermitido());
     }
@@ -35,6 +34,8 @@ public class Simulador {
     
     public static void main(String[] args) throws Exception {
         Simulador simulador = new Simulador();
+        VistaVehiculo vistaVehiculo =  new VistaVehiculo();
+        vistaVehiculo.setSimulador(simulador);
         
     }
     
