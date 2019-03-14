@@ -265,6 +265,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
             }
         }catch (PatinarException pe){
             JOptionPane.showMessageDialog(null, mensaje);
+            patinar();
         }
         dibujarVelocidad();
         audioCarroFreno.stop();
@@ -325,8 +326,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAcelerarActionPerformed
     
     public void patinar() {
-        
+        if(simulador.detenerPatinado())
+            verificadorVelocidad = false;
     }
+    
     public void reparar(){
         if(simulador.entregarEstadoAccidente()){
             btnReparar.setVisible(true);

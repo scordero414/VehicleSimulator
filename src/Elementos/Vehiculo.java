@@ -197,5 +197,11 @@ public class Vehiculo {
         }
     }
     
+    public boolean detenerPatinado() {
+        if(velocidad == 0) {
+            return true;
+        }
+        return false;
+    }
     
 }
