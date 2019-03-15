@@ -38,8 +38,16 @@ public class LectorArchivoTextoPlano implements Lector {
     
     @Override
     public String[] leerTexto(){
+        /**
+         * Ruta del archivo de texto.
+         */
         String texto = "src/Archivos/EditarVehiculo.txt";
         File file = new File(texto);
+        
+        /**
+        * Arreglo donde se guardarán los datos como tipo de llanta y 
+        * cilindraje del motor, guardados n el archivo de texto.
+        */
         String arr [] = new String[4];
         try {
             if(file.length() != 0) {

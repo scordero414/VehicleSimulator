@@ -14,6 +14,9 @@ import java.io.IOException;
  * @author ASUS
  */
 public class VistaTaller extends javax.swing.JDialog {
+    /**
+     * Estado de la vista, conociendo los botones accionados.
+     */
     private int estadoTaller;
 
     public int getEstadoTaller() {
@@ -89,16 +92,29 @@ public class VistaTaller extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Volver a la vista inicial (menú).
+     * @param evt 
+     */
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         estadoTaller  =1;
         dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    /**
+     * Realizarle mejoras o modificar la llanta o motor del vehículo.
+     * Se abre un archivo de texto.
+     * @param evt 
+     */
     private void btnRealizarMejorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarMejorasActionPerformed
         String archivo = "src\\Archivos\\EditarVehiculo.txt";
         abrirTxt(archivo);
     }//GEN-LAST:event_btnRealizarMejorasActionPerformed
 
+    /**
+     * Se abre un archivo de texto.
+     * @param archivo 
+     */
     public void abrirTxt(String archivo){
         try {
             File objectTxt = new File(archivo);
