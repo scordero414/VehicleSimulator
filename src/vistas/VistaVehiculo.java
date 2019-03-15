@@ -22,9 +22,18 @@ import javax.swing.JOptionPane;
  * @author ASUS
  */
 public class VistaVehiculo extends javax.swing.JFrame {
-    
+
+    /**
+     * Saber si se ha sobrepasado el límite de velocidad del vehículo.
+     */
     private boolean verificadorVelocidad = false;
+    /**
+     * Cantidad de milisegundos que se presiona acelerar el vehículo.
+     */
     private long milisegs;
+    /**
+     * Cantidad de milisegundos que se presiona frenar el vehículo.
+     */
     private long milisegs2;
     /**
      * Velocidad al comenzar a frenar.
@@ -297,7 +306,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
         System.out.println("Me presionaron : "+milisegs2+" segundos");
         String mensaje = "El vehículo ha patinado, has frenado bruscamente y tus llantas no soportan tanta tension.";
         
-        if(simulador.sobrePasarVelocidadLlantas(velocidadActual))
+        if(simulador.sobrepasarVelocidadLlantas(velocidadActual))
                 verificadorVelocidad = true;
             llamarExcepcionesPatinar(mensaje);
         
@@ -335,7 +344,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
             if(!simulador.desactivarApagarApagado()) {
                 throw new ApagarDeNuevoException(mensaje);
             }
-            if(!simulador.frenarAltaVelocidad()) {
+            if(!simulador.apagarAltaVelocidad()) {
                 apagarVehiculo();
             } else {
                 if(simulador.entregarEstadoAccidente()){

@@ -26,7 +26,8 @@ public class Vehiculo {
      */
     private Motor motor;
     /**
-     * La velocidad a la que andará el vehículo, esta varía constantemente.
+     * La velocidad a la que andará el vehículo, esta varía constantemente, se 
+     * predetermina a 0.
      */
     private float velocidad = 0; 
     /**
@@ -94,27 +95,55 @@ public class Vehiculo {
             determinarVelocidadNegativa();
         }
     }
-    
+    /**
+     * Se modifica el estado del vehículo a que esté encendido, 
+     * modificando de igual manera su velocidad.
+     */
     public void prender(){
         estadoPrendido = true;
         velocidad = 0;
     }
+    /**
+     * Se modifica el estado del vehículo a que esté apagado, 
+     * modificando de igual manera su velocidad a 0.
+     */
     public void apagar(){
         estadoPrendido = false;
         velocidad = 0;
     }
-
+    /**
+     * Se desactivan las funciones como frenar o acelerar, al estar el 
+     * vehículo apagado.
+     * @return El estado del vehículo (Encendido o apagado).
+     * @throws AccionesApagadoException 
+     */
     public boolean desactivarFrenarAcelerarApagado() throws AccionesApagadoException {
         return conocerEstadoPrendidoVehiculo();
     }
-    
+    /**
+     * Se desactiva la función de apagar el vehículo, al estar el vehículo
+     * apagado.
+     * @return El estado del vehículo (Encendido o apagado).
+     * @throws ApagarDeNuevoException 
+     */
     public boolean desactivarApagarApagado() throws ApagarDeNuevoException {
         return conocerEstadoPrendidoVehiculo();
     }
-    
+    /**
+     * Se desactiva la función de encender el vehículo, al estar el vehículo
+     * encendido.
+     * @return El estado del vehículo (Encendido o apagado).
+     * @throws EncenderDeNuevoException 
+     */
     public boolean desactivarEncenderEncendido() throws EncenderDeNuevoException{
         return conocerEstadoPrendidoVehiculo();
     }
+    /**
+     * Se verifica que la velocidad del vehículo ha sobrepasado la velocidad
+     * máxima para el motor.
+     * @return Se verifica si se ha sobrepasado la velocidad máxima.
+     * @throws AccidenteException 
+     */
     public boolean sobrepasarLimiteMotor() throws AccidenteException{
         if(velocidad > motor.getVelocidadMaxima()){
             estadoAccidentado = true;
@@ -125,14 +154,18 @@ public class Vehiculo {
         }
         return false;
     }
-    
+    /**
+     * Se conoce el estado del vehículo.
+     * @return El estado del vehículo (Encendido o apagado).
+     */
     public boolean conocerEstadoPrendidoVehiculo() {
-        if(isEstadoPrendido()) 
-            return true;
-        return false;
+        return isEstadoPrendido();
     }
-
-    
+    /**
+     * Al estar el vehículo con una velocidad negativa, ésta se modifica a 0.
+     * @return Se verifica si la velocidad es menor de 0.
+     * @throws FrenadoDetenidoException 
+     */
     public boolean frenarDetenido() throws FrenadoDetenidoException {
         if(velocidad <= 0) {
             velocidad = 0;
@@ -140,21 +173,60 @@ public class Vehiculo {
         }
         return false;
     }
-    
-    public boolean frenarAltaVelocidad() throws AccidenteException {
+    /**
+     * Al estar la velocidad mayor de 60km/h y se apag el vehículo, éste 
+     * se accidentará.
+     * @return se verifica si la velocidad es mayor a 60.
+     * @throws AccidenteException 
+     */
+    public boolean apagarAltaVelocidad() throws AccidenteException {
         if(velocidad > 60) {
             estadoAccidentado = true;
             return true;
         }
         return false;
     }
-    
-    public boolean sobrePasarVelocidadLlantas(float vel) throws PatinarException{
+    /**
+     * Al estar el vehículo a una velocidad mayor a la que sus llantas permiten,
+     * y se hace un frenado brusco; el vehículo patinará, por lo que 
+     * la velocidad se modificará a 0.
+     * @param vel
+     * @return Se verifica si el vehículo realizó los requisitos dados.
+     * @throws PatinarException 
+     */
+    public boolean sobrepasarVelocidadLlantas(float vel) throws PatinarException{
         if(vel > llanta.getLimitePermitido() && estadoFrenoBrusco == true) {
             estadoPatinado = true;
             velocidad = 0;
             return true;
         }
+        return false;
+    }
+    /**
+     * Al estar la velocidad del vehículo menor de 0, esta se modifica para
+     * conocer que la velocidad se ha disminuido más de lo necesario.
+     */
+    public void determinarVelocidadNegativa(){
+        if(velocidad < 0)
+            velocidad = -1;
+    }
+    /**
+     * En el momento que la velocidad sea modificad a -1, automaticamente se 
+     * modifica a 0, para no mostrar velocidades negativas.
+     */
+    public void detenerVehiculo() {
+        if(velocidad == -1){
+            velocidad = 0;
+        }
+    }
+    /**
+     * Si el vehículo está patinando y éste llega a una velocidad de 0,
+     * éste deja de patinar.
+     * @return Se verifica si el vehículo llegó a una velocidad de 0.
+     */
+    public boolean detenerPatinado() {
+        if(velocidad == 0.0)
+            return true;
         return false;
     }
     
@@ -197,23 +269,4 @@ public class Vehiculo {
     public void setMotor(Motor motor) {
         this.motor = motor;
     }
-    
-    public void determinarVelocidadNegativa(){
-        if(velocidad < 0)
-            velocidad = -1;
-    }
-    
-    public void detenerVehiculo() {
-        if(velocidad == -1){
-            velocidad = 0;
-        }
-    }
-    
-    public boolean detenerPatinado() {
-        if(velocidad == 0.0) {
-            return true;
-        }
-        return false;
-    }
-    
 }

@@ -10,14 +10,14 @@ package vistas;
  * @author ASUS
  */
 public class VistaMenuPrincipal extends javax.swing.JDialog {
+    /**
+     * Estado de la vista, conociendo los botones accionados.
+     */
     private int estado;
 
     public int getEstado() {
         return estado;
     }
-    
-    
-
     
     /**
      * Creates new form VistaMenuPrincipal
@@ -58,7 +58,7 @@ public class VistaMenuPrincipal extends javax.swing.JDialog {
         btnEntrar.setText("Entrar");
         btnEntrar.setBorderPainted(false);
         btnEntrar.setContentAreaFilled(false);
-        btnEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);
@@ -79,7 +79,7 @@ public class VistaMenuPrincipal extends javax.swing.JDialog {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/exit.png"))); // NOI18N
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -93,16 +93,28 @@ public class VistaMenuPrincipal extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Se ingresa a la simulación del vehículo.
+     * @param evt 
+     */
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         estado = 1;
         dispose();
     }//GEN-LAST:event_btnEntrarActionPerformed
 
+    /**
+     * Se ingresa al taller, para poder modificar el vehículo.
+     * @param evt 
+     */
     private void btnTallerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTallerActionPerformed
         estado = 2;
         dispose();
     }//GEN-LAST:event_btnTallerActionPerformed
 
+    /**
+     * Se sale de la aplicación.
+     * @param evt 
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jButton1ActionPerformed

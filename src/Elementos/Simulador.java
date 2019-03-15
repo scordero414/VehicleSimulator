@@ -66,64 +66,110 @@ public class Simulador {
     public float extraerVelocidad(){
         return vehiculo.getVelocidad();
     }
+    /**
+     * Se llama el método de la clase vehículo para establecer como prendido 
+     * el estado del vehículo.
+     */
     public void prenderVehiculo(){
         vehiculo.prender();
     }
+    /**
+     * Se llama el método de la clase vehículo para establecer como apagadp 
+     * el estado del vehículo, por lo que no es posible realizar ninguna acción.
+     */
     public void apagarVehiculo(){
         vehiculo.apagar();
     }
-    
+    /**
+     * Se deshabilitan las funciones de acelerar o frenar el vehículo, ya que 
+     * éste se encuentra en estado apagado.
+     * @return método de la clase vehículo.
+     * @throws AccionesApagadoException 
+     */
     public boolean desactivarFrenarAcelerarApagado() throws AccionesApagadoException {
         return vehiculo.desactivarFrenarAcelerarApagado();
     }
-    
+    /**
+     * Al estar el vehículo en estado apagado, éste ya no se puede apagar
+     * de nuevo.
+     * @return método de la clase vehículo.
+     * @throws ApagarDeNuevoException 
+     */
     public boolean desactivarApagarApagado() throws ApagarDeNuevoException {
         return vehiculo.desactivarApagarApagado();
     }
-    
+    /**
+     * Al estar el vehículo en estado encendido, éste ya no se puede encender
+     * de nuevo.
+     * @return método de la clase vehículo.
+     * @throws EncenderDeNuevoException 
+     */
     public boolean desactivarEncenderEncendido() throws EncenderDeNuevoException{
         return vehiculo.desactivarEncenderEncendido();
     }
-    
+    /**
+     * Al estar el vehículo detenido (velocidad = 0), no será posible
+     * frenar más.
+     * @return método de la clase vehículo.
+     * @throws FrenadoDetenidoException 
+     */
     public boolean validarFrenarDetenido() throws FrenadoDetenidoException {
         return vehiculo.frenarDetenido();
     }
-    
-    public boolean frenarAltaVelocidad() throws AccidenteException {
-        return vehiculo.frenarAltaVelocidad();
-       
+    /**
+     * Al apagar el vehículo a una gran velocidad (60 km/h), éste se accidentará.
+     * @return método de la clase vehículo.
+     * @throws AccidenteException 
+     */
+    public boolean apagarAltaVelocidad() throws AccidenteException {
+        return vehiculo.apagarAltaVelocidad();
     }
-
-    public boolean sobrePasarVelocidadLlantas(float vel) throws PatinarException{
-        return vehiculo.sobrePasarVelocidadLlantas(vel);
+    /**
+     * Se verifica si se ha sobrepasado la velocidad límite para las llantas.
+     * @param vel velocidad del vehículo
+     * @return método de la clase vehículo.
+     * @throws PatinarException 
+     */
+    public boolean sobrepasarVelocidadLlantas(float vel) throws PatinarException{
+        return vehiculo.sobrepasarVelocidadLlantas(vel);
     }
-    
+    /**
+     * Se verifica si se ha sobrepasado la velocidad límite para el motor. 
+     * @return método de la clase vehículo.
+     * @throws AccidenteException 
+     */
     public boolean sobrepasarLimiteMotor() throws AccidenteException{
         return vehiculo.sobrepasarLimiteMotor();
     }
-    
+    /**
+     * Conociendo la velocidad del vehículo, si ésta es igual a 0, y el vehículo
+     * ha estado patinando, se detiene la patinación.
+     * @return método de la clase vehículo.
+     */
     public boolean detenerPatinado() {
-        if(vehiculo.detenerPatinado())
-            return true;
-        return false;
+        return vehiculo.detenerPatinado();
     }
-    
+    /**
+     * Se cambia el estado del vehículo, si está accidentado, o no. 
+     */
     public void cambiarEstadoAccidentado(){
         vehiculo.setEstadoAccidentado(false);
     }
-    
+    /**
+     * Se conoce el estado del vehículo (Si éste está accidentado o no).
+     * @return método de la clase vehículo.
+     */
     public boolean entregarEstadoAccidente(){
         return vehiculo.isEstadoAccidentado();
     }
-    
+    /**
+     * Si la velocidad del vehículo es negativa, en este caso -1. 
+     * Se modifica la velocidad a 0.
+     */
     public void detenerVehiculo() {
         if(extraerVelocidad() == -1) 
             vehiculo.setVelocidad(0);
     }
-    
-//    public boolean determinarVelocidadNegativa(){
-//        return vehiculo.determinarVelocidadNegativa();
-//    }
     
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;

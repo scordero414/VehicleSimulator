@@ -29,20 +29,31 @@ public class Taller {
     private Motor tipoMotor;
 
     private Vehiculo vehiculoTaller;
-   // private LectorArchivoTextoPlano lectorArchivoTextoPlano;
     
-    
+    /**
+     * Texto de prueba al iniciar el programa, para saber que está corriendo 
+     * con éxito.
+     */
     public void textoPrueba(){
         System.out.println("Prueba");
     }
+    
     public Taller(Vehiculo vehiculo) {
         this.vehiculoTaller = vehiculo;
-        //iniciarLectura();
     }
+    /**
+     * Se crea un lector el cual leerá los datos dados en la clase 
+     * de LectorArchivoTextoPlano.
+     * @return el lector.
+     */
     public Lector crearLector(){
         Lector  lector = new LectorArchivoTextoPlano();
         return lector;
     }
+    /**
+     * Al ser creado el lector, se conocen los datos requeridos para
+     * la llanta y el motor, y se modifica el vehículo.
+     */
     public void iniciarLectura(){
         Lector lector = crearLector();
         crearLlanta(lector);
@@ -58,6 +69,11 @@ public class Taller {
         setCilindrajeMotor(lectorArchivoTextoPlano.entregarMotor());
     }*/
     
+    /**
+     * Conociendo los datos pedidos para la llanta, éste se le asigna 
+     * a la llanta.
+     * @param lector 
+     */
     public void crearLlanta(Lector lector) {
         String archivoLlanta;
         try {
@@ -79,6 +95,11 @@ public class Taller {
         }
         
     }
+    /**
+     * Conociendo los datos pedidos para el motor, éste se le asigna 
+     * al motor.
+     * @param lector 
+     */
     public void crearMotor(Lector lector){
         String archivoLlanta;
         try {
@@ -101,12 +122,18 @@ public class Taller {
         
         
     }
-
+    /**
+     * Se le ensamblan la llanta y el motor al vehículo.
+     * @param vehiculo 
+     */
     public void ensamblarLlantaMotor(Vehiculo vehiculo){
         vehiculo.setLlanta(tipoLlanta);
         vehiculo.setMotor(tipoMotor);
     }
-
+    /**
+     * Se conoce el tipo de llanta pedido.
+     * @return Tipo de llanta.
+     */
     public Llanta getTipoLlanta() {
         return tipoLlanta;
     }
@@ -114,7 +141,10 @@ public class Taller {
     public void setTipoLlanta(Llanta tipoLlanta) {
         this.tipoLlanta = tipoLlanta;
     }
-
+    /**
+     * Se conoce el tipo de motor pedido.
+     * @return Tipo de motor.
+     */
     public Motor getTipoMotor() {
         return tipoMotor;
     }
