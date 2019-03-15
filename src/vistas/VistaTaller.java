@@ -5,6 +5,10 @@
  */
 package vistas;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+
 /**
  *
  * @author ASUS
@@ -36,10 +40,10 @@ public class VistaTaller extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        btnModificarArchivo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
+        btnRealizarMejoras = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -48,12 +52,6 @@ public class VistaTaller extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Verdana", 3, 70)); // NOI18N
         jLabel2.setText("Taller");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
-
-        btnModificarArchivo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reparacionCarro.png"))); // NOI18N
-        btnModificarArchivo.setBorderPainted(false);
-        btnModificarArchivo.setContentAreaFilled(false);
-        btnModificarArchivo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(btnModificarArchivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 240, 220));
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Modificar el vehiculo.");
@@ -73,6 +71,17 @@ public class VistaTaller extends javax.swing.JDialog {
         });
         getContentPane().add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 320, 80, -1));
 
+        btnRealizarMejoras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/reparacionCarro.png"))); // NOI18N
+        btnRealizarMejoras.setBorderPainted(false);
+        btnRealizarMejoras.setContentAreaFilled(false);
+        btnRealizarMejoras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRealizarMejoras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRealizarMejorasActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnRealizarMejoras, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, -1, -1));
+
         fondo.setBackground(new java.awt.Color(255, 255, 255));
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoBlanco.png"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 410));
@@ -85,8 +94,21 @@ public class VistaTaller extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    private void btnRealizarMejorasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRealizarMejorasActionPerformed
+        String archivo = "src\\Archivos\\EditarVehiculo.txt";
+        abrirTxt(archivo);
+    }//GEN-LAST:event_btnRealizarMejorasActionPerformed
+
+    public void abrirTxt(String archivo){
+        try {
+            File objectTxt = new File(archivo);
+            Desktop.getDesktop().open(objectTxt);
+        }catch (IOException ex) {
+            System.out.println(ex);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnModificarArchivo;
+    private javax.swing.JButton btnRealizarMejoras;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel fondo;
     private javax.swing.JLabel jLabel2;

@@ -27,6 +27,7 @@ public class VistaMenuPrincipal extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(this);
         setVisible(true);
+        
     }
 
     /**

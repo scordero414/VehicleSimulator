@@ -26,7 +26,12 @@ public class Taller {
 
     private LectorArchivoTextoPlano lectorArchivoTextoPlano;
     
+    
+    
     public Taller() {
+        //iniciarLectura();
+    }
+    public void iniciarLectura(){
         lectorArchivoTextoPlano = new LectorArchivoTextoPlano();
         crearLlanta();
         crearMotor();
