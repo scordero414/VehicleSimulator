@@ -405,7 +405,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
      * Se apaga el vehículo, y se resetea.
      */
     public void apagarVehiculo() {
-        audioCarroAndando.stop();
+//        audioCarroAndando.stop();
         simulador.apagarVehiculo();
         dibujarVelocidad();
     }
