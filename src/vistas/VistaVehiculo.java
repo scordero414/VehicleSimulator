@@ -63,6 +63,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
         VistaMenuPrincipal vistaMenuPrincipal = new VistaMenuPrincipal(this, true);
         iniciarVidriosInvisibles();
         decidirBotonesMenu(vistaMenuPrincipal);
+        informarLlantasMotor();
         
     }
 
@@ -84,10 +85,14 @@ public class VistaVehiculo extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnReparar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         lblVidrio = new javax.swing.JLabel();
         lblVidrioLateral = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblLlanta = new javax.swing.JLabel();
+        lblMotor = new javax.swing.JLabel();
         btnSalir = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -188,16 +193,31 @@ public class VistaVehiculo extends javax.swing.JFrame {
         });
         getContentPane().add(btnReparar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 90, 270, 120));
 
-        jButton2.setBackground(new java.awt.Color(0, 0, 0));
-        jButton2.setBorderPainted(false);
-        jButton2.setEnabled(false);
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 80, 270, 130));
-
         lblVidrio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/vidrioRoto (1).png"))); // NOI18N
         getContentPane().add(lblVidrio, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, -1, 100));
 
         lblVidrioLateral.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/vidrioLateral.png"))); // NOI18N
         getContentPane().add(lblVidrioLateral, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 270, 280));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Llantas:");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 160, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Motor:");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1290, 110, -1, -1));
+
+        lblLlanta.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        lblLlanta.setForeground(new java.awt.Color(255, 255, 255));
+        lblLlanta.setText("------");
+        getContentPane().add(lblLlanta, new org.netbeans.lib.awtextra.AbsoluteConstraints(1370, 160, 130, 30));
+
+        lblMotor.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
+        lblMotor.setForeground(new java.awt.Color(255, 255, 255));
+        lblMotor.setText("------");
+        getContentPane().add(lblMotor, new org.netbeans.lib.awtextra.AbsoluteConstraints(1370, 110, 130, 30));
 
         btnSalir.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
         btnSalir.setForeground(new java.awt.Color(255, 255, 255));
@@ -211,6 +231,11 @@ public class VistaVehiculo extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 160, 180));
+
+        jButton2.setBackground(new java.awt.Color(0, 0, 0));
+        jButton2.setBorderPainted(false);
+        jButton2.setEnabled(false);
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1270, 80, 270, 130));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/VehiculoF.jpg"))); // NOI18N
         fondo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -302,7 +327,8 @@ public class VistaVehiculo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, mensajeAccidente);
         }
     }//GEN-LAST:event_btnFrenoMousePressed
-
+    
+    
     /**
      * Verificar que el vehículo está detenido (velocidad = 0) y no se puede
      * frenar más.
@@ -344,7 +370,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
     /**
      * Se verifica si el vehículo cumple algún requisito para empezar
      * a patinar.
-     * @param mensaje 
+     * @param mensaje el cual le inforamra al conductor.
      */
     public void llamarExcepcionesPatinar(String mensaje) {
         try{
@@ -362,7 +388,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
     
     /**
      * Se comienza la acción de patinar el vehículo.
-     * @param mensaje 
+     * @param mensaje el cual le inforamra al conductor.
      */
     public void comenzarPatinado(String mensaje) {
         dibujarVelocidad();
@@ -405,7 +431,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
      * Se apaga el vehículo, y se resetea.
      */
     public void apagarVehiculo() {
-//        audioCarroAndando.stop();
+        audioCarroAndando.stop();
         simulador.apagarVehiculo();
         dibujarVelocidad();
     }
@@ -634,6 +660,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
        VistaMenuPrincipal vistaMenuPrincipal = new VistaMenuPrincipal(this, true);
        decidirBotonesMenu(vistaMenuPrincipal);
    }
+   public void informarLlantasMotor(){
+       lblLlanta.setText(simulador.entregarTipoLlanta());
+       lblMotor.setText(simulador.entregarTipoMotor());
+   }
    /**
     * En el momento que se activa ésta vista, se crea un nuevo vehículo
     * con los datos dados en el archivo de texto.
@@ -653,6 +683,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lblLlanta;
+    private javax.swing.JLabel lblMotor;
     private javax.swing.JLabel lblVelocidad;
     private javax.swing.JLabel lblVidrio;
     private javax.swing.JLabel lblVidrioLateral;

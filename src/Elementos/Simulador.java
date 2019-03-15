@@ -27,7 +27,6 @@ public class Simulador {
     public Simulador() {
         vehiculo = new Vehiculo(false, false, false);
         taller = new Taller(vehiculo);
-        taller.textoPrueba();
         //System.out.println(vehiculo.getLlanta().getLimitePermitido());
     }
 
@@ -174,5 +173,10 @@ public class Simulador {
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
-    
+    public String entregarTipoLlanta(){
+        return taller.entregarNombreLlanta();
+    }
+    public String entregarTipoMotor(){
+        return taller.entregarNombreMotor();
+    }
 }

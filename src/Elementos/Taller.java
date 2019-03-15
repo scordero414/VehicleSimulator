@@ -30,14 +30,7 @@ public class Taller {
 
     private Vehiculo vehiculoTaller;
     
-    /**
-     * Texto de prueba al iniciar el programa, para saber que está corriendo 
-     * con éxito.
-     */
-    public void textoPrueba(){
-        System.out.println("Prueba");
-    }
-    
+    private Lector lector;
     public Taller(Vehiculo vehiculo) {
         this.vehiculoTaller = vehiculo;
     }
@@ -55,7 +48,7 @@ public class Taller {
      * la llanta y el motor, y se modifica el vehículo.
      */
     public void iniciarLectura(){
-        Lector lector = crearLector();
+        lector = crearLector();
         crearLlanta(lector);
         crearMotor(lector);
         ensamblarLlantaMotor(vehiculoTaller);
@@ -161,4 +154,10 @@ public class Taller {
 //        this.lectorArchivoTextoPlano = lectorArchivoTextoPlano;
 //    }
 //    
+    public String entregarNombreLlanta(){
+        return lector.obtenerNombreLlanta();
+    }
+    public String entregarNombreMotor(){
+        return lector.obtenerNombreMotor();
+    }
 }

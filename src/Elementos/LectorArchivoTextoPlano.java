@@ -61,7 +61,6 @@ public class LectorArchivoTextoPlano implements Lector {
                     line = reader.readLine();
                 }
                 arr = text.split(" ");
-                System.out.println(arr[1] +" " + arr[3]);
             } else {
                 throw new TextoPlanoException("Debe ingresar los datos correctamente.");
             }
@@ -83,19 +82,21 @@ public class LectorArchivoTextoPlano implements Lector {
         
     }
     
-//    /**
-//     * Se retorna el tipo de llanta guardado en el archivo de texto.
-//     * @return tipo de llanta, guardado en la posición 1 del array.
-//     */
-//    public String entregarLlanta() {
-//        return arr[1];
-//    }
-//    
-//    /**
-//     * Se retorna el cilindraje del motor guardado en el archivo de texto.
-//     * @return cilindraje del motor, guardado en la posición 3 del array.
-//     */
-//    public String entregarMotor() {
-//        return arr[3];
-//    }
+    /**
+     * Se retorna el tipo de llanta guardado en el archivo de texto.
+     * @return tipo de llanta, guardado en la posición 1 del array.
+     */
+    public String obtenerNombreLlanta() {
+        String arr[] = leerTexto();
+        return arr[1];
+    }
+    
+    /**
+     * Se retorna el cilindraje del motor guardado en el archivo de texto.
+     * @return cilindraje del motor, guardado en la posición 3 del array.
+     */
+    public String obtenerNombreMotor() {
+        String arr[] = leerTexto();
+        return arr[3];
+    }
 }

@@ -58,7 +58,7 @@ public class VistaMenuPrincipal extends javax.swing.JDialog {
         btnEntrar.setText("Entrar");
         btnEntrar.setBorderPainted(false);
         btnEntrar.setContentAreaFilled(false);
-        btnEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnEntrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);
@@ -69,6 +69,7 @@ public class VistaMenuPrincipal extends javax.swing.JDialog {
         btnTaller.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/taller (1).png"))); // NOI18N
         btnTaller.setBorderPainted(false);
         btnTaller.setContentAreaFilled(false);
+        btnTaller.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnTaller.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTallerActionPerformed(evt);
@@ -79,7 +80,7 @@ public class VistaMenuPrincipal extends javax.swing.JDialog {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/exit.png"))); // NOI18N
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

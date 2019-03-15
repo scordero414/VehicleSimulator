@@ -16,4 +16,7 @@ public interface Lector {
      * @throws IOException 
      */
     public String[] leerTexto() throws IOException;
+    
+    public String obtenerNombreLlanta();
+    public String obtenerNombreMotor();
 }
