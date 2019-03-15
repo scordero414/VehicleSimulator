@@ -351,7 +351,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnApagarActionPerformed
 
     public void apagarVehiculo() {
-        audioCarroAndando.stop();
+//        audioCarroAndando.stop();
         simulador.apagarVehiculo();
         dibujarVelocidad();
     }
