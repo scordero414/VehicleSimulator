@@ -26,19 +26,21 @@ public class Simulador {
     private Taller taller;
     public Simulador() {
         vehiculo = new Vehiculo(false, false, false);
-        taller = new Taller();
-        taller.ensamblarLlantaMotor(vehiculo);
-        System.out.println(vehiculo.getLlanta().getLimitePermitido());
+        taller = new Taller(vehiculo);
+        taller.textoPrueba();
+        //System.out.println(vehiculo.getLlanta().getLimitePermitido());
     }
 
     
     public static void main(String[] args) throws Exception {
         Simulador simulador = new Simulador();
-        VistaVehiculo vistaVehiculo =  new VistaVehiculo();
-        vistaVehiculo.setSimulador(simulador);
+        VistaVehiculo vistaVehiculo =  new VistaVehiculo(simulador);
+        //vistaVehiculo.setSimulador(simulador);
         
     }
-    
+    public void leerTxt(){
+        taller.iniciarLectura();
+    }
     /**
      * Se llama el método de acelerar ubicado en el vehículo,
      * para que éste aumente su velocidad.
@@ -126,4 +128,5 @@ public class Simulador {
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
+    
 }

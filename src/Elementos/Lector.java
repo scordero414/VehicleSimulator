@@ -15,5 +15,5 @@ public interface Lector {
      * Método para la lectura del archivo de texto.
      * @throws IOException 
      */
-    public void leerTexto() throws IOException;
+    public String[] leerTexto() throws IOException;
 }

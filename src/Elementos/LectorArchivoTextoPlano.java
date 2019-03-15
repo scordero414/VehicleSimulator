@@ -23,28 +23,37 @@ import java.util.logging.Logger;
  */
 public class LectorArchivoTextoPlano implements Lector {
     
-    /**
-     * Ruta del archivo de texto.
-     */
-    private String texto = "src/Archivos/EditarVehiculo.txt";
-    /**
-     * Arreglo donde se guardarán los datos como tipo de llanta y 
-     * cilindraje del motor, guardados n el archivo de texto.
-     */
-    private String arr[];
+//    /**
+//     * Ruta del archivo de texto.
+//     */
+//    private String texto = "src/Archivos/EditarVehiculo.txt";
+//    /**
+//     * Arreglo donde se guardarán los datos como tipo de llanta y 
+//     * cilindraje del motor, guardados n el archivo de texto.
+//     */
+//    private String arr[];
 
-    public LectorArchivoTextoPlano() {
-        leerTexto();
-    }
+
+
     
     @Override
-    public void leerTexto(){
-            
+    public String[] leerTexto(){
+        String texto = "src/Archivos/EditarVehiculo.txt";
         File file = new File(texto);
-        
+        String arr [] = new String[4];
         try {
             if(file.length() != 0) {
-                conocerArchivoTexto();
+                FileReader fileR = new FileReader(texto);
+                BufferedReader reader = new BufferedReader(fileR);
+
+                String text = "";
+                String line = reader.readLine();
+                while (line != null) {
+                    text += line;
+                    line = reader.readLine();
+                }
+                arr = text.split(" ");
+                System.out.println(arr[1] +" " + arr[3]);
             } else {
                 throw new TextoPlanoException("Debe ingresar los datos correctamente.");
             }
@@ -52,8 +61,8 @@ public class LectorArchivoTextoPlano implements Lector {
             System.out.println(ex.getMessage());
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
-            //Logger.getLogger(LectorArchivoTextoPlano.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return arr;
     }
     
     /**
@@ -61,34 +70,24 @@ public class LectorArchivoTextoPlano implements Lector {
      * @throws FileNotFoundException
      * @throws IOException 
      */
-    public void conocerArchivoTexto() throws FileNotFoundException, IOException {
+    public void conocerArchivoTexto(String texto,String[] arr) throws FileNotFoundException, IOException {
         
-        FileReader fileR = new FileReader(texto);
-        BufferedReader reader = new BufferedReader(fileR);
         
-        String text = "";
-        String line = reader.readLine();
-        while (line != null) {
-            text += line;
-            line = reader.readLine();
-        }
-        arr = text.split(" ");
-        System.out.println(arr[1] +" " + arr[3]);
     }
     
-    /**
-     * Se retorna el tipo de llanta guardado en el archivo de texto.
-     * @return tipo de llanta, guardado en la posición 1 del array.
-     */
-    public String entregarLlanta() {
-        return arr[1];
-    }
-    
-    /**
-     * Se retorna el cilindraje del motor guardado en el archivo de texto.
-     * @return cilindraje del motor, guardado en la posición 3 del array.
-     */
-    public String entregarMotor() {
-        return arr[3];
-    }
+//    /**
+//     * Se retorna el tipo de llanta guardado en el archivo de texto.
+//     * @return tipo de llanta, guardado en la posición 1 del array.
+//     */
+//    public String entregarLlanta() {
+//        return arr[1];
+//    }
+//    
+//    /**
+//     * Se retorna el cilindraje del motor guardado en el archivo de texto.
+//     * @return cilindraje del motor, guardado en la posición 3 del array.
+//     */
+//    public String entregarMotor() {
+//        return arr[3];
+//    }
 }

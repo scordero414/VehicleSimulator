@@ -5,6 +5,10 @@
  */
 package Elementos;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Se configura los atributos del vehículo, como lo son el tipo de llanta 
  * y el cilindraje del motor.
@@ -24,17 +28,26 @@ public class Taller {
      */
     private Motor tipoMotor;
 
-    private LectorArchivoTextoPlano lectorArchivoTextoPlano;
+    private Vehiculo vehiculoTaller;
+   // private LectorArchivoTextoPlano lectorArchivoTextoPlano;
     
     
-    
-    public Taller() {
+    public void textoPrueba(){
+        System.out.println("Prueba");
+    }
+    public Taller(Vehiculo vehiculo) {
+        this.vehiculoTaller = vehiculo;
         //iniciarLectura();
     }
+    public Lector crearLector(){
+        Lector  lector = new LectorArchivoTextoPlano();
+        return lector;
+    }
     public void iniciarLectura(){
-        lectorArchivoTextoPlano = new LectorArchivoTextoPlano();
-        crearLlanta();
-        crearMotor();
+        Lector lector = crearLector();
+        crearLlanta(lector);
+        crearMotor(lector);
+        ensamblarLlantaMotor(vehiculoTaller);
     }
     /**
      * Se configura los atributos de motor y llanta, del carro
@@ -45,35 +58,48 @@ public class Taller {
         setCilindrajeMotor(lectorArchivoTextoPlano.entregarMotor());
     }*/
     
-    public void crearLlanta(){
-        String archivoLlanta = lectorArchivoTextoPlano.entregarLlanta();
-        if(archivoLlanta.equalsIgnoreCase("bonitas")){
+    public void crearLlanta(Lector lector) {
+        String archivoLlanta;
+        try {
+            archivoLlanta = lector.leerTexto()[1];
+            if(archivoLlanta.equalsIgnoreCase("bonitas")){
             Llanta llanta = new LlantaBonita(70);
             tipoLlanta = llanta;
+            }
+            if(archivoLlanta.equalsIgnoreCase("buenas")){
+                Llanta llanta = new LlantaBuena(110);
+                tipoLlanta = llanta;
+            }
+            if(archivoLlanta.equalsIgnoreCase("baratas")){
+                Llanta llanta = new LlantaBuena(50);
+                tipoLlanta = llanta;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Taller.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(archivoLlanta.equalsIgnoreCase("buenas")){
-            Llanta llanta = new LlantaBuena(110);
-            tipoLlanta = llanta;
-        }
-        if(archivoLlanta.equalsIgnoreCase("baratas")){
-            Llanta llanta = new LlantaBuena(50);
-            tipoLlanta = llanta;
-        }
+        
     }
-    public void crearMotor(){
-        String archivoLlanta = lectorArchivoTextoPlano.entregarMotor();
-        if(archivoLlanta.equalsIgnoreCase("1000")){
+    public void crearMotor(Lector lector){
+        String archivoLlanta;
+        try {
+            archivoLlanta = lector.leerTexto()[3];
+            if(archivoLlanta.equalsIgnoreCase("1000")){
             Motor motor = new Motor1000(100);
             tipoMotor = motor;
+            }
+            if(archivoLlanta.equalsIgnoreCase("2000")){
+                Motor motor = new Motor2000(160);
+                tipoMotor = motor;
+            }
+            if(archivoLlanta.equalsIgnoreCase("3000")){
+                Motor motor = new Motor3000(220);
+                tipoMotor = motor;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Taller.class.getName()).log(Level.SEVERE, null, ex);
         }
-        if(archivoLlanta.equalsIgnoreCase("2000")){
-            Motor motor = new Motor2000(160);
-            tipoMotor = motor;
-        }
-        if(archivoLlanta.equalsIgnoreCase("3000")){
-            Motor motor = new Motor3000(220);
-            tipoMotor = motor;
-        }
+        
+        
     }
 
     public void ensamblarLlantaMotor(Vehiculo vehiculo){
@@ -97,12 +123,12 @@ public class Taller {
         this.tipoMotor = tipoMotor;
     }
 
-    public LectorArchivoTextoPlano getLectorArchivoTextoPlano() {
-        return lectorArchivoTextoPlano;
-    }
-
-    public void setLectorArchivoTextoPlano(LectorArchivoTextoPlano lectorArchivoTextoPlano) {
-        this.lectorArchivoTextoPlano = lectorArchivoTextoPlano;
-    }
-    
+//    public LectorArchivoTextoPlano getLectorArchivoTextoPlano() {
+//        return lectorArchivoTextoPlano;
+//    }
+//
+//    public void setLectorArchivoTextoPlano(LectorArchivoTextoPlano lectorArchivoTextoPlano) {
+//        this.lectorArchivoTextoPlano = lectorArchivoTextoPlano;
+//    }
+//    
 }

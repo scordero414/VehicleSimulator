@@ -41,12 +41,14 @@ public class VistaVehiculo extends javax.swing.JFrame {
     /**
      * Creates new form VistaVehiculo
      */
-    public VistaVehiculo() {
+    public VistaVehiculo(Simulador simulador) {
+        this.simulador = simulador;
         initComponents();
         setLocationRelativeTo(null);
         VistaMenuPrincipal vistaMenuPrincipal = new VistaMenuPrincipal(this, true);
         iniciarVidriosInvisibles();
         decidirBotonesMenu(vistaMenuPrincipal);
+        
     }
 
     /**
@@ -486,6 +488,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
    public void decidirBotonesMenu(VistaMenuPrincipal vistaMenuPrincipal) {
         switch(vistaMenuPrincipal.getEstado()){
             case 1:
+                simulador.leerTxt();
                 this.setVisible(true);
             break;
             case 2:
