@@ -92,8 +92,8 @@ public class Simulador {
        
     }
 
-    public boolean sobrePasarVelocidadLlantas() throws PatinarException{
-        return vehiculo.sobrePasarVelocidadLlantas();
+    public boolean sobrePasarVelocidadLlantas(float vel) throws PatinarException{
+        return vehiculo.sobrePasarVelocidadLlantas(vel);
     }
     
     public boolean sobrepasarLimiteMotor() throws AccidenteException{
@@ -110,13 +110,18 @@ public class Simulador {
         vehiculo.setEstadoAccidentado(false);
     }
     
-    public void patinar(String mensaje) {
-        
-    }
-    
     public boolean entregarEstadoAccidente(){
         return vehiculo.isEstadoAccidentado();
     }
+    
+    public void detenerVehiculo() {
+        if(extraerVelocidad() == -1) 
+            vehiculo.setVelocidad(0);
+    }
+    
+//    public boolean determinarVelocidadNegativa(){
+//        return vehiculo.determinarVelocidadNegativa();
+//    }
     
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;

@@ -80,7 +80,7 @@ public class Vehiculo {
     public void frenar(float frenado){
        
         if(frenado  >= 0 & frenado < 3){
-            velocidad -= frenado * 2;
+            velocidad -=  frenado * 2;
             determinarVelocidadNegativa();
         }else if(frenado >= 3 & frenado < 5){
             velocidad -= frenado * 3;
@@ -149,9 +149,10 @@ public class Vehiculo {
         return false;
     }
     
-    public boolean sobrePasarVelocidadLlantas() throws PatinarException{
-        if(velocidad > llanta.getLimitePermitido() && estadoFrenoBrusco == true) {
+    public boolean sobrePasarVelocidadLlantas(float vel) throws PatinarException{
+        if(vel > llanta.getLimitePermitido() && estadoFrenoBrusco == true) {
             estadoPatinado = true;
+            velocidad = 0;
             return true;
         }
         return false;
@@ -198,7 +199,12 @@ public class Vehiculo {
     }
     
     public void determinarVelocidadNegativa(){
-        if(velocidad<0){
+        if(velocidad < 0)
+            velocidad = -1;
+    }
+    
+    public void detenerVehiculo() {
+        if(velocidad == -1){
             velocidad = 0;
         }
     }
