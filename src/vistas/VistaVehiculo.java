@@ -397,9 +397,15 @@ public class VistaVehiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRepararActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        setVisible(false);
-        apagarVehiculo();
-        crearDialogoPrincipal();
+        try {
+            setVisible(false);
+            apagarVehiculo();
+            crearDialogoPrincipal();
+        } catch (NullPointerException e) {
+            setVisible(false);
+            crearDialogoPrincipal();
+        }
+        
     }//GEN-LAST:event_btnSalirActionPerformed
     
     public void determinarFinalizacionDelPatinado() {
