@@ -39,7 +39,13 @@ public class VistaVehiculo extends javax.swing.JFrame {
      * Velocidad al comenzar a frenar.
      */
     private float velocidadActual;
+    /**
+     * Llamar a la clase Simulador para utilizar sus métodos o atributos.
+     */
     private Simulador simulador;
+    /**
+     * Llamar a la clase Vehiculo para utilizar sus métodos o atributos.
+     */
     private Vehiculo vehiculo;
     
     public void setSimulador(Simulador simulador) {
@@ -213,10 +219,14 @@ public class VistaVehiculo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Comenzar la aceleración del vehículo.
+     * @param evt 
+     */
     private void btnAcelerarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMousePressed
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
         String mensajeAccidente = "El vehículo está accidentadom, no puedes utilizarlo hasta que lo repares";
-        String mensajePatinar = "El vehículo esta patinando, por favor frena para poder detener el vehículo.";
+        
         try {
             if(simulador.desactivarFrenarAcelerarApagado()) {
                 milisegs = (System.currentTimeMillis())/1000;
@@ -235,6 +245,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAcelerarMousePressed
 
+    /**
+     * Finalizar la aceleración del vehículo.
+     * @param evt 
+     */
     private void btnAcelerarMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAcelerarMouseReleased
         milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
         simulador.acelerarVehiculo(milisegs2);
@@ -244,6 +258,9 @@ public class VistaVehiculo extends javax.swing.JFrame {
         System.out.println("Me presionaron : "+milisegs2+" segundos");
     }//GEN-LAST:event_btnAcelerarMouseReleased
     
+    /**
+     * Verifcar si se ha sobrepasado la velocidad permitida por el motor.
+     */
     public void verificarSobrePasarLimiteMotor(){
         String mensaje = "Pasaste el limite de velocidad del motor, te has accidentado.";
         try {
@@ -258,6 +275,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Comenzar a frenar el vehículo.
+     * @param evt 
+     */
     private void btnFrenoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMousePressed
         String mensaje = "El vehículo está apagado, debes encenderlo para utilizarlo.";
         String mensajeAccidente = "El vehículo está accidentado, no puedes utilizarlo hasta que lo repares";
@@ -282,6 +303,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnFrenoMousePressed
 
+    /**
+     * Verificar que el vehículo está detenido (velocidad = 0) y no se puede
+     * frenar más.
+     */
     public void frenarMinimo() {
         String mensaje = "El vehículo ya está detenido no se puede frenar más.";
         try {
@@ -295,6 +320,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Terminar de frenar el vehículo.
+     * @param evt 
+     */
     private void btnFrenoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnFrenoMouseReleased
         milisegs2 = (System.currentTimeMillis()/1000) - milisegs;
         frenarMinimo();
@@ -312,6 +341,11 @@ public class VistaVehiculo extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnFrenoMouseReleased
 
+    /**
+     * Se verifica si el vehículo cumple algún requisito para empezar
+     * a patinar.
+     * @param mensaje 
+     */
     public void llamarExcepcionesPatinar(String mensaje) {
         try{
             if(-(simulador.extraerVelocidad() - velocidadActual) > velocidadActual) {
@@ -326,6 +360,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Se comienza la acción de patinar el vehículo.
+     * @param mensaje 
+     */
     public void comenzarPatinado(String mensaje) {
         dibujarVelocidad();
         audioCarroFreno.stop();
@@ -336,6 +374,10 @@ public class VistaVehiculo extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnFrenoMouseClicked
 
+    /**
+     * Se apaga el vehículo, modificándolo a su estado original.
+     * @param evt 
+     */
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
         String mensaje = "El carro ya está apagado";
         String mensajeAccidente = "Te haz accidentado!!!! Haz pagado el vehìculo a una velocidad no permitida, se te apagará el vehículo.";
@@ -359,12 +401,19 @@ public class VistaVehiculo extends javax.swing.JFrame {
         } 
     }//GEN-LAST:event_btnApagarActionPerformed
 
+    /**
+     * Se apaga el vehículo, y se resetea.
+     */
     public void apagarVehiculo() {
         audioCarroAndando.stop();
         simulador.apagarVehiculo();
         dibujarVelocidad();
     }
     
+    /**
+     * Se enciende el vehículo, permitiéndolo realizar sus funciones.
+     * @param evt 
+     */
     private void btnEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncenderActionPerformed
         String mensaje = "El vehículo ya está encendido y listo para funcionar.";
         String mensajeAccidente = "El vehículo está accidentadom, no puedes utilizarlo hasta que lo repares";
@@ -392,10 +441,19 @@ public class VistaVehiculo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAcelerarActionPerformed
 
+    /**
+     * En el momento que el vehículo esté accidentado, se puede utilizar esta
+     * función para poder repararlo y seguir utilizando el vehículo.
+     * @param evt 
+     */
     private void btnRepararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRepararActionPerformed
         reparar();
     }//GEN-LAST:event_btnRepararActionPerformed
 
+    /**
+     * Salir del vehículo y volver a la ventana principal.
+     * @param evt 
+     */
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         try {
             setVisible(false);
@@ -408,27 +466,47 @@ public class VistaVehiculo extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnSalirActionPerformed
     
+    /**
+     * Se finaliza la acción de patinar el vehículo.
+     */
     public void determinarFinalizacionDelPatinado() {
         if(simulador.detenerPatinado())
             verificadorVelocidad = false;
     }
     
+    /**
+     * En el momento que se ha accidentado el vehículo, se activa esta 
+     * función.
+     */
     public void activarReparacion(){
         if(simulador.entregarEstadoAccidente()){
             btnReparar.setVisible(true);
         }
     }
     
+    /**
+     * Al oprimir el botón de reparar el vehículo, éste volverá a su 
+     * estado original.
+     */
     public void reparar(){
         desactivarVidrios();
         simulador.cambiarEstadoAccidentado();
     }
     
+    /**
+     * Se conoce la velocidad actual del vehículo y ésta se dibuja 
+     * en el vehículo.
+     */
     public void dibujarVelocidad(){
         float velocidad = simulador.extraerVelocidad();
         lblVelocidad.setText(Float.toString(velocidad));
     }
+    
+    /**
+     * Sonido de un vehículo en movimiento.
+     */
     private AudioClip audioCarroAndando;
+    
     /**
      * Se genera el sonido del auto en su marcha normal.
      */
@@ -437,7 +515,11 @@ public class VistaVehiculo extends javax.swing.JFrame {
         audioCarroAndando.loop();
     }
     
+    /**
+     * Sonido de un vehículo acelerando.
+     */
     private AudioClip audioCarroAcelerando;
+    
     /**
      * Se genera el sonido del auto acelerando.
      */
@@ -446,7 +528,11 @@ public class VistaVehiculo extends javax.swing.JFrame {
         audioCarroAcelerando.loop();
     }
     
+    /**
+     * Sonido de un vehículo encendiendo.
+     */
     private AudioClip audioCarroPrendiendo;
+    
     /**
      * Se genera el sonido del auto prendiendo.
      */
@@ -473,6 +559,9 @@ public class VistaVehiculo extends javax.swing.JFrame {
         audioCarroFreno.loop();
     }
     
+    /**
+     * Cuando el vehículo se accidenta, se activa esta función.
+     */
     public void iniciarAccidente(){
         apagarVehiculo();
         generarSonidoAutoChoque();
@@ -481,15 +570,24 @@ public class VistaVehiculo extends javax.swing.JFrame {
         //desactivarAccionesVehiculo();
     }
     
+    /**
+     * Se muestran los vidrios en estado accidentado (rotos).
+     */
     public void activarVidrio(){
         lblVidrio.setVisible(true);
         lblVidrioLateral.setVisible(true);
     }
+    /**
+     * Cuando se repara el vehículo, se quitan los vidrios rotos.
+     */
     public void desactivarVidrios(){
         lblVidrio.setVisible(false);
         lblVidrioLateral.setVisible(false);
         btnReparar.setVisible(false);
     }
+    /**
+     * Se muestran los vidrios en estado original.
+     */
     public void iniciarVidriosInvisibles(){
         btnReparar.setVisible(false);
         lblVidrio.setVisible(false);
@@ -529,10 +627,17 @@ public class VistaVehiculo extends javax.swing.JFrame {
         }
     }
    
+   /**
+    * Cuando se sale del vehículo, se muestra la ventana principal.
+    */
    public void crearDialogoPrincipal(){
        VistaMenuPrincipal vistaMenuPrincipal = new VistaMenuPrincipal(this, true);
        decidirBotonesMenu(vistaMenuPrincipal);
    }
+   /**
+    * En el momento que se activa ésta vista, se crea un nuevo vehículo
+    * con los datos dados en el archivo de texto.
+    */
    public void crearDialogoTaller(){
        VistaTaller vistaTaller = new VistaTaller(this, true);
    }
