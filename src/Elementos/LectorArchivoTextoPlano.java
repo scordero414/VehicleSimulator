@@ -23,21 +23,8 @@ import java.util.logging.Logger;
  */
 public class LectorArchivoTextoPlano implements Lector {
     
-//    /**
-//     * Ruta del archivo de texto.
-//     */
-//    private String texto = "src/Archivos/EditarVehiculo.txt";
-//    /**
-//     * Arreglo donde se guardarán los datos como tipo de llanta y 
-//     * cilindraje del motor, guardados n el archivo de texto.
-//     */
-//    private String arr[];
-
-
-
-    
     @Override
-    public String[] leerTexto(){
+    public String[] leerTexto() throws FileNotFoundException, IOException,NullPointerException{
         /**
          * Ruta del archivo de texto.
          */
@@ -49,7 +36,6 @@ public class LectorArchivoTextoPlano implements Lector {
         * cilindraje del motor, guardados n el archivo de texto.
         */
         String arr [] = new String[4];
-        try {
             if(file.length() != 0) {
                 FileReader fileR = new FileReader(texto);
                 BufferedReader reader = new BufferedReader(fileR);
@@ -61,34 +47,23 @@ public class LectorArchivoTextoPlano implements Lector {
                     line = reader.readLine();
                 }
                 arr = text.split(" ");
-            } else {
-                throw new TextoPlanoException("Debe ingresar los datos correctamente.");
             }
-        } catch (TextoPlanoException ex) {
-            System.out.println(ex.getMessage());
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
         return arr;
     }
-    
-    /**
-     * Se busca y se conoce el contenido del archivo de texto.
-     * @throws FileNotFoundException
-     * @throws IOException 
-     */
-    public void conocerArchivoTexto(String texto,String[] arr) throws FileNotFoundException, IOException {
-        
-        
-    }
-    
+
     /**
      * Se retorna el tipo de llanta guardado en el archivo de texto.
      * @return tipo de llanta, guardado en la posición 1 del array.
      */
     public String obtenerNombreLlanta() {
-        String arr[] = leerTexto();
-        return arr[1];
+        String arr[];
+        try {
+            arr = leerTexto();
+            return arr[1];
+        } catch (IOException ex) {
+            Logger.getLogger(LectorArchivoTextoPlano.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
     /**
@@ -96,7 +71,13 @@ public class LectorArchivoTextoPlano implements Lector {
      * @return cilindraje del motor, guardado en la posición 3 del array.
      */
     public String obtenerNombreMotor() {
-        String arr[] = leerTexto();
-        return arr[3];
+        String arr[];
+        try {
+            arr = leerTexto();
+            return arr[3];
+        } catch (IOException ex) {
+            Logger.getLogger(LectorArchivoTextoPlano.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

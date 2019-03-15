@@ -5,6 +5,7 @@
  */
 package Elementos;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,19 +19,11 @@ import java.util.logging.Logger;
  * @since 2.0
  */
 public class Taller {
-    
-    /**
-     * Tipo de llanta.
-     */
-    private Llanta tipoLlanta;
-    /**
-     * Cilindraje perteneciente al motor.
-     */
-    private Motor tipoMotor;
 
     private Vehiculo vehiculoTaller;
     
     private Lector lector;
+    
     public Taller(Vehiculo vehiculo) {
         this.vehiculoTaller = vehiculo;
     }
@@ -47,7 +40,7 @@ public class Taller {
      * Al ser creado el lector, se conocen los datos requeridos para
      * la llanta y el motor, y se modifica el vehículo.
      */
-    public void iniciarLectura(){
+    public void iniciarLectura() throws IOException,FileNotFoundException,NullPointerException{
         lector = crearLector();
         crearLlanta(lector);
         crearMotor(lector);
@@ -67,93 +60,55 @@ public class Taller {
      * a la llanta.
      * @param lector 
      */
-    public void crearLlanta(Lector lector) {
+    public Llanta crearLlanta(Lector lector) throws IOException ,NullPointerException,FileNotFoundException {
         String archivoLlanta;
-        try {
-            archivoLlanta = lector.leerTexto()[1];
-            if(archivoLlanta.equalsIgnoreCase("bonitas")){
+        archivoLlanta = lector.leerTexto()[1];
+        if(archivoLlanta.equalsIgnoreCase("bonitas")){
             Llanta llanta = new LlantaBonita(70);
-            tipoLlanta = llanta;
-            }
-            if(archivoLlanta.equalsIgnoreCase("buenas")){
-                Llanta llanta = new LlantaBuena(110);
-                tipoLlanta = llanta;
-            }
-            if(archivoLlanta.equalsIgnoreCase("baratas")){
-                Llanta llanta = new LlantaBuena(50);
-                tipoLlanta = llanta;
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Taller.class.getName()).log(Level.SEVERE, null, ex);
+            return llanta;
         }
-        
+        if(archivoLlanta.equalsIgnoreCase("buenas")){
+            Llanta llanta = new LlantaBuena(110);
+            return llanta;
+        }
+        if(archivoLlanta.equalsIgnoreCase("baratas")){
+            Llanta llanta = new LlantaBuena(50);
+            return llanta;
+        }
+        return null;
     }
     /**
      * Conociendo los datos pedidos para el motor, éste se le asigna 
      * al motor.
      * @param lector 
      */
-    public void crearMotor(Lector lector){
+    public Motor crearMotor(Lector lector) throws FileNotFoundException, NullPointerException, IOException{
         String archivoLlanta;
-        try {
-            archivoLlanta = lector.leerTexto()[3];
-            if(archivoLlanta.equalsIgnoreCase("1000")){
+        archivoLlanta = lector.leerTexto()[3];
+        if(archivoLlanta.equalsIgnoreCase("1000")){
             Motor motor = new Motor1000(100);
-            tipoMotor = motor;
-            }
-            if(archivoLlanta.equalsIgnoreCase("2000")){
-                Motor motor = new Motor2000(160);
-                tipoMotor = motor;
-            }
-            if(archivoLlanta.equalsIgnoreCase("3000")){
-                Motor motor = new Motor3000(220);
-                tipoMotor = motor;
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Taller.class.getName()).log(Level.SEVERE, null, ex);
+            return motor;
         }
-        
-        
+        if(archivoLlanta.equalsIgnoreCase("2000")){
+            Motor motor = new Motor2000(160);
+            return motor;
+        }
+        if(archivoLlanta.equalsIgnoreCase("3000")){
+            Motor motor = new Motor3000(220);
+            return motor;
+        }
+        return null;        
     }
     /**
      * Se le ensamblan la llanta y el motor al vehículo.
      * @param vehiculo 
      */
-    public void ensamblarLlantaMotor(Vehiculo vehiculo){
-        vehiculo.setLlanta(tipoLlanta);
-        vehiculo.setMotor(tipoMotor);
+    public void ensamblarLlantaMotor(Vehiculo vehiculo) throws IOException,NullPointerException{
+        vehiculo.setLlanta(crearLlanta(lector));
+        vehiculo.setMotor(crearMotor(lector));
     }
-    /**
-     * Se conoce el tipo de llanta pedido.
-     * @return Tipo de llanta.
-     */
-    public Llanta getTipoLlanta() {
-        return tipoLlanta;
-    }
+    
 
-    public void setTipoLlanta(Llanta tipoLlanta) {
-        this.tipoLlanta = tipoLlanta;
-    }
-    /**
-     * Se conoce el tipo de motor pedido.
-     * @return Tipo de motor.
-     */
-    public Motor getTipoMotor() {
-        return tipoMotor;
-    }
-
-    public void setTipoMotor(Motor tipoMotor) {
-        this.tipoMotor = tipoMotor;
-    }
-
-//    public LectorArchivoTextoPlano getLectorArchivoTextoPlano() {
-//        return lectorArchivoTextoPlano;
-//    }
-//
-//    public void setLectorArchivoTextoPlano(LectorArchivoTextoPlano lectorArchivoTextoPlano) {
-//        this.lectorArchivoTextoPlano = lectorArchivoTextoPlano;
-//    }
-//    
     public String entregarNombreLlanta(){
         return lector.obtenerNombreLlanta();
     }

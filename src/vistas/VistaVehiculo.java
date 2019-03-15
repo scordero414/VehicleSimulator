@@ -15,6 +15,8 @@ import Exceptions.EncenderDeNuevoException;
 import Exceptions.FrenadoDetenidoException;
 import Exceptions.PatinarException;
 import java.applet.AudioClip;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
@@ -62,9 +64,7 @@ public class VistaVehiculo extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         VistaMenuPrincipal vistaMenuPrincipal = new VistaMenuPrincipal(this, true);
         iniciarVidriosInvisibles();
-        decidirBotonesMenu(vistaMenuPrincipal);
-        informarLlantasMotor();
-        
+        decidirBotonesMenu(vistaMenuPrincipal);       
     }
 
     /**
@@ -627,8 +627,21 @@ public class VistaVehiculo extends javax.swing.JFrame {
    public void decidirBotonesMenu(VistaMenuPrincipal vistaMenuPrincipal) {
         switch(vistaMenuPrincipal.getEstado()){
             case 1:
-                simulador.leerTxt();
-                this.setVisible(true);
+                try{
+                    simulador.leerTxt();
+                    this.setVisible(true);
+                    informarLlantasMotor();
+                } catch(FileNotFoundException fe){
+                    JOptionPane.showMessageDialog(null, "No se ha encontrado el archivo");
+                    crearDialogoPrincipal();
+                }catch(IOException ioe){
+                    JOptionPane.showMessageDialog(null, "Algo va mal con el archivo, revisalo por favor.");
+                    crearDialogoPrincipal();
+                }catch(NullPointerException ioe){
+                    JOptionPane.showMessageDialog(null, "El archivo esta vacio, ingresa los datos en el taller.");
+                    crearDialogoPrincipal();
+                }
+                
             break;
             case 2:
                 //crearDialogoTaller();

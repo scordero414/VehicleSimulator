@@ -11,6 +11,8 @@ import Exceptions.ApagarDeNuevoException;
 import Exceptions.EncenderDeNuevoException;
 import Exceptions.FrenadoDetenidoException;
 import Exceptions.PatinarException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import vistas.VistaMenuPrincipal;
 import vistas.VistaVehiculo;
 
@@ -37,7 +39,7 @@ public class Simulador {
         //vistaVehiculo.setSimulador(simulador);
         
     }
-    public void leerTxt(){
+    public void leerTxt() throws IOException,FileNotFoundException, NullPointerException{
         taller.iniciarLectura();
     }
     /**
